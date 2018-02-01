@@ -15,7 +15,7 @@ public class KnifeThrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxisRaw("Fire1") != 0  && !startTimer)
+        if ((Input.GetAxisRaw("Fire1") != 0 || Input.GetAxisRaw("Right Trigger") != 0)  && !startTimer)
         {
 
             GameObject tempKnifeHandler;
@@ -27,7 +27,7 @@ public class KnifeThrow : MonoBehaviour
         }
         if(startTimer)
         {
-            if(timer >= 2)
+            if(timer >= 1)
             {
                 startTimer = false;
                 timer = 0;

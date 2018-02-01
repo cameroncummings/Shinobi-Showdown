@@ -22,9 +22,9 @@ public class ThirdPersonCameraControl : MonoBehaviour
     {
         //calculating the mouse input
         currentX += Input.GetAxis("Mouse X") * sensitivityX;
-        currentX += Input.GetAxis("Joystick X") * sensitivityX;
+        currentX += Input.GetAxis("Right Stick X") * sensitivityX;
         currentY -= Input.GetAxis("Mouse Y") * sensitivityY;
-        currentY += Input.GetAxis("Joystick Y") * sensitivityY;
+        currentY -= Input.GetAxis("Right Stick Y") * sensitivityY;
 
         currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
 

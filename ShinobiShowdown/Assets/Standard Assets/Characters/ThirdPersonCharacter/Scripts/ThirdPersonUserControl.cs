@@ -21,8 +21,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             if (isLocalPlayer)
             {
                 //setting the minimap and main camera as a child of the current player
-                Camera.main.transform.parent.transform.position = this.transform.position + new Vector3(0.5f, 1, 0);
-                Camera.main.transform.parent.parent = this.transform;
+                //Camera.main.transform.parent.transform.position = this.transform.position + new Vector3(0.5f, 1, 0);
+                //Camera.main.transform.parent.parent = this.transform;
 
                 miniMapCam.transform.position = this.transform.position + this.transform.up * 20f;
                 miniMapCam.transform.LookAt(this.transform.position);

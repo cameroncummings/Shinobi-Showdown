@@ -35,7 +35,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 camTransform.position = player.transform.position + new Vector3(0f, 1.2f, 0);
                 camTransform.rotation = player.transform.rotation;
                 camTransform.rotation = Quaternion.Euler(currentY, currentX, -player.transform.rotation.z);
-                player.transform.rotation = Quaternion.Euler(0, currentX, 0);
+
+                if (player.GetComponent<ThirdPersonCharacter>().m_ForwardAmount == 0)
+                {
+                    player.transform.rotation = Quaternion.Euler(0, currentX, 0);
+                }
             }
             //TODO: Pause Menu
 

@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class Knife : MonoBehaviour
 {
+    public void Start()
+    {
+        this.transform.rotation = new Quaternion(0, 90, 0, 1);
+        this.GetComponent<Rigidbody>().freezeRotation = true ;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Lantern")
         {
-            Destroy(this);
+            Destroy(other.gameObject);
+            Destroy(gameObject);
         }
-        else if(other.tag == "Player")
+        else if (other.tag == "Player")
         {
             other.GetComponent<PlayerHealth>().TakeDamage(33.4f);
         }
         else
         {
-            try
-            {
-                other.GetComponent<Renderer>().material.color = Color.red;
-            }
-            catch { }
-            //this.transform.position -= this.transform.forward;
             this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         }
     }

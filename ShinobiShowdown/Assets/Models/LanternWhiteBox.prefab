@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4337823779432132}
   - component: {fileID: 33909182194128694}
+  - component: {fileID: 65204368709995098}
   - component: {fileID: 23661461804815878}
   m_Layer: 0
   m_Name: Cube
@@ -56,7 +57,7 @@ GameObject:
   - component: {fileID: 114496175800596384}
   m_Layer: 0
   m_Name: LanternWhiteBox
-  m_TagString: Lantern
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,6 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4581714069845612}
   - component: {fileID: 33714179692543474}
+  - component: {fileID: 65083288126600556}
   - component: {fileID: 23422262082889280}
   - component: {fileID: 108984628985624334}
   m_Layer: 0
@@ -113,7 +115,7 @@ Transform:
   m_GameObject: {fileID: 1119134344847988}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.99, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4961787885585890}
   m_RootOrder: 2
@@ -125,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1152076528030898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10, y: 0, z: 30}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4337823779432132}
@@ -164,7 +166,6 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!23 &23661461804815878
 MeshRenderer:
@@ -196,7 +197,6 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!33 &33714179692543474
 MeshFilter:
@@ -212,6 +212,30 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1046115917058168}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65083288126600556
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1238003817992148}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65204368709995098
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1046115917058168}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &108984628985624334
 Light:
   m_ObjectHideFlags: 1
@@ -219,11 +243,11 @@ Light:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1238003817992148}
   m_Enabled: 1
-  serializedVersion: 8
+  serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 0.9293103, b: 0.6985294, a: 1}
   m_Intensity: 1
-  m_Range: 2.8
+  m_Range: 2.93
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -237,29 +261,13 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_FalloffTable:
-    m_Table[0]: 0
-    m_Table[1]: 0
-    m_Table[2]: 0
-    m_Table[3]: 0
-    m_Table[4]: 0
-    m_Table[5]: 0
-    m_Table[6]: 0
-    m_Table[7]: 0
-    m_Table[8]: 0
-    m_Table[9]: 0
-    m_Table[10]: 0
-    m_Table[11]: 0
-    m_Table[12]: 0
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!114 &114496175800596384
@@ -273,6 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d278dbfda4cd54fbce5818371a258c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightSource: {fileID: 1238003817992148}
   indicatorRing: {fileID: 1119134344847988}
   player: {fileID: 1484394486454860, guid: 7737647c22c1fc64a88d5cd030c352ce, type: 2}
 --- !u!135 &135887167825375984
@@ -286,7 +295,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2.2
-  m_Center: {x: 0, y: -1, z: 0}
+  m_Center: {x: 0, y: -0.68, z: 0}
 --- !u!212 &212027255738783138
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -317,15 +326,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a1d332e7797a64e4ab52b835bfd03d30, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0

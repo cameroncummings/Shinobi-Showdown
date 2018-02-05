@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class KnifeThrow : MonoBehaviour
 {
-
-    [SerializeField] private GameObject KnifeSpawnPoint;
     [SerializeField] private GameObject Knife;
     [SerializeField] private float Knife_ThrowForce;
 
@@ -17,9 +15,9 @@ public class KnifeThrow : MonoBehaviour
     {
         if ((Input.GetAxisRaw("Fire1") != 0 || Input.GetAxisRaw("Right Trigger") != 0)  && !startTimer)
         {
-
             GameObject tempKnifeHandler;
-            tempKnifeHandler = Instantiate(Knife, KnifeSpawnPoint.transform.position, KnifeSpawnPoint.transform.rotation);
+            tempKnifeHandler = Instantiate(Knife, transform.position, transform.rotation);
+            tempKnifeHandler.transform.rotation = Quaternion.LookRotation(transform.right);
             //tempKnifeHandler.transform.Rotate(Vector3.left * 90);
             Rigidbody tempRigidBody = tempKnifeHandler.GetComponent<Rigidbody>();
             tempRigidBody.AddForce(transform.forward * Knife_ThrowForce);

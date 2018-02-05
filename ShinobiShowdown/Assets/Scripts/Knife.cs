@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Knife : MonoBehaviour
+public class Knife : NetworkBehaviour
 {
     public void Start()
     {
-        this.transform.rotation = new Quaternion(0, 90, 0, 1);
-        this.GetComponent<Rigidbody>().freezeRotation = true ;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,7 +18,7 @@ public class Knife : MonoBehaviour
         }
         else if (other.tag == "Player")
         {
-            other.GetComponent<PlayerHealth>().TakeDamage(33.4f);
+            other.GetComponent<PlayerHealth>().TakeDamage(50);
         }
         else
         {

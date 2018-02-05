@@ -6,6 +6,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 {
     public class ThirdPersonCameraControl : MonoBehaviour
     {
+        [SerializeField] private GameObject player;
         [SerializeField] private float sensitivityX = 2.0f;//the x sensitivity forr the mouse
         [SerializeField] private float sensitivityY = 1.0f;//the x sensitivity forr the mouse
 
@@ -20,36 +21,27 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
 
             if (player != null)
             {
                 currentX += Input.GetAxis("Mouse X") * sensitivityX;
                 currentX += Input.GetAxis("Right Stick X") * sensitivityX;
+                currentX += Input.GetAxis("Horizontal") * sensitivityX;
+
                 currentY -= Input.GetAxis("Mouse Y") * sensitivityY;
                 currentY -= Input.GetAxis("Right Stick Y") * sensitivityY;
 
                 currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
 
-                Transform camTransform = Camera.main.transform.parent.transform;
+                Transform camTransform = transform.parent.transform;
                 camTransform.position = player.transform.position + new Vector3(0f, 1.2f, 0);
                 camTransform.rotation = player.transform.rotation;
-                camTransform.rotation = Quaternion.Euler(currentY, currentX, -player.transform.rotation.z);
-
-                if (player.GetComponent<ThirdPersonCharacter>().m_ForwardAmount == 0)
-                {
-                    player.transform.rotation = Quaternion.Euler(0, currentX, 0);
-                }
+                //player.transform.rotation = Quaternion.Euler(currentY, currentX, 0);
+                camTransform.rotation = Quaternion.Euler(currentY, currentX, 0);
             }
-            //TODO: Pause Menu
 
         }
 
-        // Update is called once per frame
-        void LateUpdate()
-        {
-            //telling the camera to look at the player and rotating the camera to match the mouse movement
 
-        }
     }
 }

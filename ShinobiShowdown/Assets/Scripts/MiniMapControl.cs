@@ -5,9 +5,6 @@ using UnityEngine.Networking;
 
 public class MiniMapControl : MonoBehaviour
 {
-    [SerializeField] private Renderer playerIcon;//The icon that your player always sees
-    [SerializeField] private Renderer lanternPlayerIcon;// the icon that the opponent sometime sees
-
     private float defaultHeight = 20;//the default height the minimap camera follows the player at
     private float zoomedOutHeight = 30;//the height the minimap cam goes when it zooms out
 
@@ -26,13 +23,6 @@ public class MiniMapControl : MonoBehaviour
             pos.y = defaultHeight;
         }
         transform.position = pos;
-        
-        //tells it not to render the player icon for other players
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag("MiniMapIcon"))
-        {
-            g.GetComponent<Renderer>().enabled = false;
-        }
-        playerIcon.enabled = true;
     }
 
     void OnPreRender()

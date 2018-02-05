@@ -13,7 +13,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public float StrideInterval;
         [Range(0f, 1f)] public float RunningStrideLengthen;
 
-       // private CameraRefocus m_CameraRefocus;
+       // private CameraRefocus m_MainCameraRefocus;
         private bool m_PreviouslyGrounded;
         private Vector3 m_OriginalCameraPosition;
 
@@ -22,13 +22,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             motionBob.Setup(Camera, StrideInterval);
             m_OriginalCameraPosition = Camera.transform.localPosition;
-       //     m_CameraRefocus = new CameraRefocus(Camera, transform.root.transform, Camera.transform.localPosition);
+       //     m_MainCameraRefocus = new CameraRefocus(Camera, transform.root.transform, Camera.transform.localPosition);
         }
 
 
         private void Update()
         {
-          //  m_CameraRefocus.GetFocusPoint();
+          //  m_MainCameraRefocus.GetFocusPoint();
             Vector3 newCameraPosition;
             if (rigidbodyFirstPersonController.Velocity.magnitude > 0 && rigidbodyFirstPersonController.Grounded)
             {
@@ -49,7 +49,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = rigidbodyFirstPersonController.Grounded;
-          //  m_CameraRefocus.SetFocusPoint();
+          //  m_MainCameraRefocus.SetFocusPoint();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace UnityEngine.PostProcessing
         MaterialFactory m_MaterialFactory;
         RenderTextureFactory m_RenderTextureFactory;
         PostProcessingContext m_Context;
-        Camera m_Camera;
+        Camera m_MainCamera;
         PostProcessingProfile m_PreviousProfile;
 
         bool m_RenderingInSceneView = false;
@@ -91,9 +91,9 @@ namespace UnityEngine.PostProcessing
             // All the per-frame initialization logic has to be done in OnPreCull instead of Update
             // because [ImageEffectAllowedInSceneView] doesn't trigger Update events...
 
-            m_Camera = GetComponent<Camera>();
+            m_MainCamera = GetComponent<Camera>();
 
-            if (profile == null || m_Camera == null)
+            if (profile == null || m_MainCamera == null)
                 return;
 
 #if UNITY_EDITOR
@@ -104,7 +104,7 @@ namespace UnityEngine.PostProcessing
             //  - Depth of Field
             //  - Motion blur
             m_RenderingInSceneView = UnityEditor.SceneView.currentDrawingSceneView != null
-                && UnityEditor.SceneView.currentDrawingSceneView.camera == m_Camera;
+                && UnityEditor.SceneView.currentDrawingSceneView.camera == m_MainCamera;
 #endif
 
             // Prepare context
@@ -112,7 +112,7 @@ namespace UnityEngine.PostProcessing
             context.profile = profile;
             context.renderTextureFactory = m_RenderTextureFactory;
             context.materialFactory = m_MaterialFactory;
-            context.camera = m_Camera;
+            context.camera = m_MainCamera;
 
             // Prepare components
             m_DebugViews.Init(context, profile.debugViews);
@@ -174,7 +174,7 @@ namespace UnityEngine.PostProcessing
 
         void OnPostRender()
         {
-            if (profile == null || m_Camera == null)
+            if (profile == null || m_MainCamera == null)
                 return;
 
             if (!m_RenderingInSceneView && m_Taa.active && !profile.debugViews.willInterrupt)
@@ -184,7 +184,7 @@ namespace UnityEngine.PostProcessing
         // Classic render target pipeline for RT-based effects
         void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
-            if (profile == null || m_Camera == null)
+            if (profile == null || m_MainCamera == null)
             {
                 Graphics.Blit(source, destination);
                 return;
@@ -299,7 +299,7 @@ namespace UnityEngine.PostProcessing
             if (Event.current.type != EventType.Repaint)
                 return;
 
-            if (profile == null || m_Camera == null)
+            if (profile == null || m_MainCamera == null)
                 return;
 
             if (m_EyeAdaptation.active && profile.debugViews.IsModeActive(DebugMode.EyeAdaptation))
@@ -315,7 +315,7 @@ namespace UnityEngine.PostProcessing
             // Clear command buffers
             foreach (var cb in m_CommandBuffers.Values)
             {
-                m_Camera.RemoveCommandBuffer(cb.Key, cb.Value);
+                m_MainCamera.RemoveCommandBuffer(cb.Key, cb.Value);
                 cb.Value.Dispose();
             }
 
@@ -398,7 +398,7 @@ namespace UnityEngine.PostProcessing
             var cb = new CommandBuffer { name = name };
             var kvp = new KeyValuePair<CameraEvent, CommandBuffer>(evt, cb);
             m_CommandBuffers.Add(typeof(T), kvp);
-            m_Camera.AddCommandBuffer(evt, kvp.Value);
+            m_MainCamera.AddCommandBuffer(evt, kvp.Value);
             return kvp.Value;
         }
 
@@ -411,7 +411,7 @@ namespace UnityEngine.PostProcessing
             if (!m_CommandBuffers.TryGetValue(type, out kvp))
                 return;
 
-            m_Camera.RemoveCommandBuffer(kvp.Key, kvp.Value);
+            m_MainCamera.RemoveCommandBuffer(kvp.Key, kvp.Value);
             m_CommandBuffers.Remove(type);
             kvp.Value.Dispose();
         }

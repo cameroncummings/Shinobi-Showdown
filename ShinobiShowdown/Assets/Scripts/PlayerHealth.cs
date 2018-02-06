@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class PlayerHealth : NetworkBehaviour
 {
-    [SerializeField] public float maxHealth = 100;
-    [SerializeField] public float health;
+    [SerializeField] private float maxHealth = 3;
+    private float currentHealth;
+    public float CurrentHealth{get{return currentHealth;}set{currentHealth = value;}}
+    private List<GameObject> heartList = new List<GameObject>();
     //[SerializeField] private AudioClip deathClip;
 
     private Animator anim;                                              // Reference to the Animator component.
@@ -20,7 +22,8 @@ public class PlayerHealth : NetworkBehaviour
         playerAudio = GetComponent<AudioSource>();
         //healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
         // Set the initial health of the player.
-        health = maxHealth;
+        currentHealth = maxHealth;
+        heartList = new List<GameObject>(GameObject.FindGameObjectsWithTag("HeartUI"));
     }
 	
 	// Update is called once per frame
@@ -29,13 +32,16 @@ public class PlayerHealth : NetworkBehaviour
     {
         if (!isLocalPlayer)
             return;
-        health -= amount;
+        currentHealth -= amount;
+        if (heartList.Count > 0)
+            heartList[0].SetActive(false);
+            heartList.RemoveAt(0);
         //playerAudio.Play();
         //healthBar.value = health;
-        if (health <= 0 && !isDead)
+        if (currentHealth <= 0 && !isDead)
         {
             Debug.Log("Dead");
-            Destroy(gameObject);
+           // Destroy(gameObject);
             isDead = true;
            //Death();
         }

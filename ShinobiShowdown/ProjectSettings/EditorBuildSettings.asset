@@ -5,15 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 5f976d9d19d86094388f5c28eaa085a0
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/OptionsMenu.unity
     guid: 356e3ac4f81e5a04d9a27f244a9953d0
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/WhiteBoxLevel.unity
     guid: eb397f67ebb482649b3bb45a777325ce
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CamLevel.unity
     guid: 72c4503328c6eba43a08d51a974a13c4

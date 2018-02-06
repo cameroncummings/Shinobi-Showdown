@@ -18,7 +18,7 @@ public class Knife : NetworkBehaviour
         }
         else if (other.tag == "Player")
         {
-            other.GetComponent<PlayerHealth>().TakeDamage(50);
+            other.GetComponent<PlayerHealth>().TakeDamage(1);
         }
         else
         {

@@ -8,6 +8,8 @@ TagManager:
   - MinimapCamera
   - Lantern
   - HealthBar
+  - Canvas
+  - HeartUI
   layers:
   - Default
   - TransparentFX

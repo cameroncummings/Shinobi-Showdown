@@ -18,6 +18,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private bool startTimer = false;
         private float timer = 0;
 
+        private bool pausedGame = false;
+
         private void Start()
         {
             // get the third person character ( this should never be null due to require component )
@@ -38,7 +40,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
-
+            if (pausedGame)
+                return;
 
             if (!m_Jump)
             {
@@ -50,7 +53,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
-            if (!isLocalPlayer)
+
+            if (!isLocalPlayer || pausedGame)
                 return;
             // read inputs
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
@@ -103,6 +107,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             //NetworkServer.Spawn(tempKnifeHandler);
             Destroy(tempKnifeHandler, 5);
             startTimer = true;
+        }
+
+        public void PauseGame(bool isPaused)
+        {
+                pausedGame = isPaused;
         }
     }
 }

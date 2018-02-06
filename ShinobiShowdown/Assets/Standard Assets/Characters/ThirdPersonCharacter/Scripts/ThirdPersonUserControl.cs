@@ -15,8 +15,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private Vector3 m_MainCamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
-        private bool startTimer = false;
-        private float timer = 0;
 
         private bool pausedGame = false;
 
@@ -82,31 +80,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             m_Character.Move(m_Move, crouch, m_Jump);
             m_Jump = false;
 
-            if ((Input.GetAxisRaw("Fire1") != 0 || Input.GetAxisRaw("Right Trigger") != 0) && !startTimer)
-            {
-                ThrowKnife();
-            }
-            if(startTimer)
-            {
-                timer += Time.deltaTime;
-                if(timer >= 1)
-                {
-                    startTimer = false;
-                    timer = 0;
-                }
-            }
 
-        }
-        private void ThrowKnife()
-        {
-            GameObject tempKnifeHandler;
-            tempKnifeHandler = Instantiate(Knife, Camera.main.transform.position + Camera.main.transform.forward * 3, Camera.main.transform.parent.rotation);
-            tempKnifeHandler.transform.rotation = Quaternion.LookRotation(Camera.main.transform.right, Camera.main.transform.up);
-            Rigidbody tempRigidBody = tempKnifeHandler.GetComponent<Rigidbody>();
-            tempRigidBody.AddForce(Camera.main.transform.forward * 750);
-            //NetworkServer.Spawn(tempKnifeHandler);
-            Destroy(tempKnifeHandler, 5);
-            startTimer = true;
         }
 
         public void PauseGame(bool isPaused)

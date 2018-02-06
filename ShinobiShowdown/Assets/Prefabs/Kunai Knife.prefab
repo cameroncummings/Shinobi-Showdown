@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4148000041339380}
   - component: {fileID: 33213138891381320}
   - component: {fileID: 65978626320799380}
+  - component: {fileID: 135813171026171422}
   - component: {fileID: 23719723887735978}
   - component: {fileID: 54877697287033706}
   - component: {fileID: 114436663847842522}
@@ -59,7 +60,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: af38b7297a1b2184597eb240dac452d6, type: 2}
+  - {fileID: 2100000, guid: ae3851d6a6d985f4c9efb9e288e51b0d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -158,21 +159,33 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 89
-    i1: 14
-    i2: 115
-    i3: 74
-    i4: 101
-    i5: 144
-    i6: 66
-    i7: 84
-    i8: 136
-    i9: 159
-    i10: 172
-    i11: 147
-    i12: 201
-    i13: 245
-    i14: 121
-    i15: 195
+    i0: 246
+    i1: 192
+    i2: 10
+    i3: 234
+    i4: 147
+    i5: 201
+    i6: 11
+    i7: 4
+    i8: 89
+    i9: 133
+    i10: 34
+    i11: 126
+    i12: 41
+    i13: 117
+    i14: 123
+    i15: 33
   m_ServerOnly: 1
   m_LocalPlayerAuthority: 0
+--- !u!135 &135813171026171422
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1491373596554236}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 7
+  m_Center: {x: 2.0118818, y: 0, z: 0}

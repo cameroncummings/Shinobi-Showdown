@@ -2,28 +2,63 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class Knife : NetworkBehaviour
 {
+    private Text screenMessage;
+    private bool hitSomething = false;
     public void Start()
     {
+        screenMessage = GameObject.FindGameObjectWithTag("InputMessage").GetComponent<Text>();
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Lantern")
+        if (!hitSomething)
         {
-            Destroy(other.gameObject);
-            Destroy(gameObject);
+            if (other.tag == "Lantern")
+            {
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+            }
+            else if (other.tag == "Player")
+            {
+                other.GetComponent<PlayerHealth>().TakeDamage(1);
+            }
+            else
+            {
+                this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            }
+            hitSomething = true;
         }
-        else if (other.tag == "Player")
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(hitSomething)
         {
-            other.GetComponent<PlayerHealth>().TakeDamage(1);
+            GetComponent<BoxCollider>().enabled = false;
+            GetComponent<SphereCollider>().enabled = true;
+            if (other.tag == "Player")
+            {
+                screenMessage.enabled = true;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    if (other.GetComponent<KnifeManager>().CurrentAmmo < other.GetComponent<KnifeManager>().maxAmmo)
+                        other.GetComponent<KnifeManager>().CurrentAmmo++;
+                    Destroy(gameObject);
+                    screenMessage.enabled = false;
+                }
+            }
         }
-        else
-        {
-            this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        screenMessage.enabled = false;
     }
 
 }

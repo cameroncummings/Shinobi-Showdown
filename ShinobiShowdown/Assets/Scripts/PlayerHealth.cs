@@ -4,38 +4,39 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class PlayerHealth : NetworkBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 3;
     private float currentHealth;
+
     public float CurrentHealth{get{return currentHealth;}set{currentHealth = value;}}
-    private List<GameObject> heartList = new List<GameObject>();
     //[SerializeField] private AudioClip deathClip;
 
     private Animator anim;                                              // Reference to the Animator component.
     private AudioSource playerAudio;                                    // Reference to the AudioSource component.
-    private bool isDead;                                                // Whether the player is dead.                                           
+    private bool isDead;                                                // Whether the player is dead.             
 
-	void Start ()
+    public delegate void DamageEvent();
+    public static event DamageEvent DamageUI;
+
+
+
+    void Start ()
     {
         anim = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
         //healthBar = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<Slider>();
         // Set the initial health of the player.
         currentHealth = maxHealth;
-        heartList = new List<GameObject>(GameObject.FindGameObjectsWithTag("HeartUI"));
     }
 	
 	// Update is called once per frame
 
     public void TakeDamage(float amount)
     {
-        if (!isLocalPlayer)
-            return;
         currentHealth -= amount;
-        if (heartList.Count > 0)
-            heartList[0].SetActive(false);
-            heartList.RemoveAt(0);
+        DamageUI();
+
         //playerAudio.Play();
         //healthBar.value = health;
         if (currentHealth <= 0 && !isDead)

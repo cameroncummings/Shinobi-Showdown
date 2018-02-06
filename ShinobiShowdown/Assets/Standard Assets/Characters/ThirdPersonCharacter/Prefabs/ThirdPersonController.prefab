@@ -710,6 +710,7 @@ GameObject:
   - component: {fileID: 114297414693360914}
   - component: {fileID: 114507152644771752}
   - component: {fileID: 114743330766249778}
+  - component: {fileID: 114313260969867908}
   - component: {fileID: 114235109951727478}
   - component: {fileID: 114816354394435254}
   - component: {fileID: 114985540393038220}
@@ -2005,7 +2006,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1224233114671504}
-  m_LocalRotation: {x: 0.53267515, y: 0.07034045, z: 0.83613265, w: -0.11041513}
+  m_LocalRotation: {x: 0.5326752, y: 0.070340455, z: 0.83613276, w: -0.110415146}
   m_LocalPosition: {x: 0.000022271464, y: -0.00006150465, z: 0.026027026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2877,6 +2878,20 @@ MonoBehaviour:
   Knife: {fileID: 1491373596554236, guid: 590e734a65904254889fac93c9f579c3, type: 2}
   m_MainCam: {fileID: 4573567646159440}
   miniMapCam: {fileID: 20274957608256006}
+--- !u!114 &114313260969867908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1484394486454860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e26a1eb662616469e280be2ded9cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Knife: {fileID: 1491373596554236, guid: f6c00aea93c90b045985227e29757b21, type: 2}
+  Knife_ThrowForce: 750
+  maxAmmo: 7
 --- !u!114 &114365994176484592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2899,7 +2914,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8664bb6afddd4994c9355b57d911c195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 3
 --- !u!114 &114544554226722246
 MonoBehaviour:
   m_ObjectHideFlags: 1

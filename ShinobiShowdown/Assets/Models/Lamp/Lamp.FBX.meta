@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: 1849ae9070c7e7846bdbf0e68b0bd6aa
+timeCreated: 1518469920
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Bottom
+    100002: BottomFrameHex
+    100004: Fence
+    100006: Frame
+    100008: Glass
+    100010: InnerFrame
+    100012: //RootNode
+    100014: Legs
+    100016: LowerFrameHex
+    100018: Pattern
+    100020: Ring
+    100022: Roof
+    100024: Top
+    100026: TopBase
+    100028: TopFrameHex
+    400000: Bottom
+    400002: BottomFrameHex
+    400004: Fence
+    400006: Frame
+    400008: Glass
+    400010: InnerFrame
+    400012: //RootNode
+    400014: Legs
+    400016: LowerFrameHex
+    400018: Pattern
+    400020: Ring
+    400022: Roof
+    400024: Top
+    400026: TopBase
+    400028: TopFrameHex
+    2300000: Bottom
+    2300002: BottomFrameHex
+    2300004: Fence
+    2300006: Frame
+    2300008: Glass
+    2300010: InnerFrame
+    2300012: Legs
+    2300014: LowerFrameHex
+    2300016: Pattern
+    2300018: Ring
+    2300020: Roof
+    2300022: Top
+    2300024: TopBase
+    2300026: TopFrameHex
+    3300000: Bottom
+    3300002: BottomFrameHex
+    3300004: Fence
+    3300006: Frame
+    3300008: Glass
+    3300010: InnerFrame
+    3300012: Legs
+    3300014: LowerFrameHex
+    3300016: Pattern
+    3300018: Ring
+    3300020: Roof
+    3300022: Top
+    3300024: TopBase
+    3300026: TopFrameHex
+    4300000: Top
+    4300002: TopBase
+    4300004: Roof
+    4300006: Frame
+    4300008: Bottom
+    4300010: LowerFrameHex
+    4300012: BottomFrameHex
+    4300014: TopFrameHex
+    4300016: InnerFrame
+    4300018: Fence
+    4300020: Pattern
+    4300022: Legs
+    4300024: Glass
+    4300026: Ring
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

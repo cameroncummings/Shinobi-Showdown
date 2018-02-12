@@ -8,7 +8,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
     [RequireComponent(typeof(ThirdPersonCharacter))]
     public class ThirdPersonUserControl : NetworkBehaviour
     {
-        [SerializeField] private GameObject Knife;
         private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
         public Transform m_MainCam;                  // A reference to the main camera in the scenes transform
         public Camera miniMapCam;                  // A reference to the main camera in the scenes transform
@@ -22,9 +21,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         {
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
-
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX;
-            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ;
 
             // DISABLE CAMERA AND CONTROLS HERE (BECAUSE THEY ARE NOT ME)
             if (isLocalPlayer)

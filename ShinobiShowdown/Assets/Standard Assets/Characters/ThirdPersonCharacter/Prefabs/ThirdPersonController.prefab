@@ -394,6 +394,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1303356186394768
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4054482665339024}
+  m_Layer: 9
+  m_Name: KnifeSpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1303903392881182
 GameObject:
   m_ObjectHideFlags: 1
@@ -710,7 +725,7 @@ GameObject:
   - component: {fileID: 114297414693360914}
   - component: {fileID: 114507152644771752}
   - component: {fileID: 114743330766249778}
-  - component: {fileID: 114313260969867908}
+  - component: {fileID: 114222539900325756}
   - component: {fileID: 114235109951727478}
   - component: {fileID: 114816354394435254}
   - component: {fileID: 114985540393038220}
@@ -1458,6 +1473,19 @@ Transform:
   m_Father: {fileID: 4071437532177262}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4054482665339024
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1303356186394768}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6, y: 0, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4270744383460254}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4063721615663452
 Transform:
   m_ObjectHideFlags: 1
@@ -1705,6 +1733,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4573567646159440}
+  - {fileID: 4054482665339024}
   m_Father: {fileID: 4532807832813706}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2820,6 +2849,22 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114222539900325756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1484394486454860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e26a1eb662616469e280be2ded9cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knifePrefab: {fileID: 1491373596554236, guid: f6c00aea93c90b045985227e29757b21,
+    type: 2}
+  knifeSpawnPos: {fileID: 1303356186394768}
+  throwForce: 20
+  maxAmmo: 7
 --- !u!114 &114232374579021284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2875,23 +2920,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 521b611700410be45810047f0a74e899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Knife: {fileID: 1491373596554236, guid: 590e734a65904254889fac93c9f579c3, type: 2}
   m_MainCam: {fileID: 4573567646159440}
   miniMapCam: {fileID: 20274957608256006}
---- !u!114 &114313260969867908
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1484394486454860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89e26a1eb662616469e280be2ded9cf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Knife: {fileID: 1491373596554236, guid: f6c00aea93c90b045985227e29757b21, type: 2}
-  Knife_ThrowForce: 750
-  maxAmmo: 7
 --- !u!114 &114365994176484592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2914,7 +2944,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8664bb6afddd4994c9355b57d911c195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
 --- !u!114 &114544554226722246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3013,7 +3042,7 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: c2815a7ab32e42c4bb42f59caacb8ec1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.2
+  m_Radius: 0.25
   m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 0.8, z: 0}

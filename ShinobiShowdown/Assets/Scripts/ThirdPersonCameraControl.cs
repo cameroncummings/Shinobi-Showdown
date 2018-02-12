@@ -40,7 +40,6 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 player.GetComponent<Animator>().speed = 0;
                 return;
             }
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
             player.GetComponent<Animator>().speed = tempSpeed;
             currentX += Input.GetAxis("Mouse X") * sensitivityX;
             currentX += Input.GetAxis("Right Stick X") * sensitivityX;

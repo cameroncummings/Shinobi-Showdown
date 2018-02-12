@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class KnifeManager : MonoBehaviour
+public class KnifeManager : NetworkBehaviour
 {
-    [SerializeField] private GameObject Knife;
-    [SerializeField] private float Knife_ThrowForce;
-
-    public int maxAmmo;
-    private int currentAmmo;
-    public int CurrentAmmo { get { return currentAmmo; } set { currentAmmo = value; } }
+    [SerializeField] private GameObject knifePrefab;
+    [SerializeField] private GameObject knifeSpawnPos;
+    [SerializeField] private float throwForce;
     private Text currentKunaiCounter;
 
-    private bool startTimer = false;
-    private float timer = 0.0f;
+    public int maxAmmo;
+
+    private int currentAmmo;
+    public int CurrentAmmo { get { return currentAmmo; } set { currentAmmo = value; } }
 
     private void Start()
     {
@@ -25,30 +25,28 @@ public class KnifeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetAxisRaw("Fire1") != 0 || Input.GetAxisRaw("Right Trigger") != 0)  && !startTimer)
+        if (!isLocalPlayer)
+            return;
+
+        if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Right Trigger")))
         {
-            if(currentAmmo > 0)
-            {
-                GameObject tempKnifeHandler;
-                tempKnifeHandler = Instantiate(Knife, Camera.main.transform.position + Camera.main.transform.forward * 3, Camera.main.transform.parent.rotation);
-                tempKnifeHandler.transform.rotation = Quaternion.LookRotation(Camera.main.transform.right, Camera.main.transform.up);
-                Rigidbody tempRigidBody = tempKnifeHandler.GetComponent<Rigidbody>();
-                tempRigidBody.AddForce(Camera.main.transform.forward * 750);
-                currentAmmo--;
-                //NetworkServer.Spawn(tempKnifeHandler);
-                Destroy(tempKnifeHandler, 5);
-                startTimer = true;
-            }
+            CmdThrow(knifeSpawnPos.transform.position, knifeSpawnPos.transform.rotation);
         }
+
         currentKunaiCounter.text = "Current Kunai Count: " + currentAmmo;
-        if(startTimer)
+    }
+
+    [Command]
+    void CmdThrow(Vector3 position, Quaternion rotation)
+    {
+        if(currentAmmo>0)
         {
-            if(timer >= 1)
-            {
-                startTimer = false;
-                timer = 0;
-            }
-            timer += Time.deltaTime;
+            GameObject knife = Instantiate(knifePrefab, position, rotation);
+            knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
+            knife.GetComponent<Rigidbody>().velocity = -knife.transform.right * throwForce;
+            currentAmmo--;
+            NetworkServer.Spawn(knife.gameObject);
         }
+        
     }
 }

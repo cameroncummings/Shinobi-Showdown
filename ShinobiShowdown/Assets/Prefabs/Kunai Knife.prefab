@@ -41,8 +41,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1491373596554236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.3}
+  m_LocalPosition: {x: -5.2202053, y: -1.7287335, z: 6.5010366}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,8 +111,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10.77, y: 3, z: 1.2}
-  m_Center: {x: 1.95, y: 0, z: 0}
+  m_Size: {x: 15, y: 3, z: 3}
+  m_Center: {x: 2, y: 0, z: 0}
 --- !u!114 &114375144675710428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -175,7 +175,7 @@ MonoBehaviour:
     i13: 117
     i14: 123
     i15: 33
-  m_ServerOnly: 1
+  m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!135 &135813171026171422
 SphereCollider:
@@ -187,5 +187,5 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 7
+  m_Radius: 20
   m_Center: {x: 2.0118818, y: 0, z: 0}

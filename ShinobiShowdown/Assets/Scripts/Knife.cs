@@ -26,6 +26,7 @@ public class Knife : NetworkBehaviour
             else if (other.tag == "Player")
             {
                 other.GetComponent<PlayerHealth>().TakeDamage(1);
+                Destroy(gameObject);
             }
             else
             {
@@ -33,15 +34,15 @@ public class Knife : NetworkBehaviour
             }
             hitSomething = true;
         }
-
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if(hitSomething)
+        if (hitSomething)
         {
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<SphereCollider>().enabled = true;
+
             if (other.tag == "Player")
             {
                 screenMessage.enabled = true;

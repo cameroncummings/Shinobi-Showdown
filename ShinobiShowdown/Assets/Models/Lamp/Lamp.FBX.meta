@@ -20,6 +20,27 @@ ModelImporter:
     100024: Top
     100026: TopBase
     100028: TopFrameHex
+    100030: Fence001
+    100032: Fence002
+    100034: Fence003
+    100036: Fence004
+    100038: Fence005
+    100040: Glass001
+    100042: Glass002
+    100044: Glass003
+    100046: Glass004
+    100048: Glass005
+    100050: InnerFrame001
+    100052: InnerFrame002
+    100054: InnerFrame003
+    100056: InnerFrame004
+    100058: InnerFrame005
+    100060: Pattern001
+    100062: Pattern002
+    100064: Pattern003
+    100066: Pattern004
+    100068: Pattern005
+    100070: PhotometricLight001
     400000: Bottom
     400002: BottomFrameHex
     400004: Fence
@@ -35,6 +56,27 @@ ModelImporter:
     400024: Top
     400026: TopBase
     400028: TopFrameHex
+    400030: Fence001
+    400032: Fence002
+    400034: Fence003
+    400036: Fence004
+    400038: Fence005
+    400040: Glass001
+    400042: Glass002
+    400044: Glass003
+    400046: Glass004
+    400048: Glass005
+    400050: InnerFrame001
+    400052: InnerFrame002
+    400054: InnerFrame003
+    400056: InnerFrame004
+    400058: InnerFrame005
+    400060: Pattern001
+    400062: Pattern002
+    400064: Pattern003
+    400066: Pattern004
+    400068: Pattern005
+    400070: PhotometricLight001
     2300000: Bottom
     2300002: BottomFrameHex
     2300004: Fence
@@ -49,6 +91,26 @@ ModelImporter:
     2300022: Top
     2300024: TopBase
     2300026: TopFrameHex
+    2300028: Fence001
+    2300030: Fence002
+    2300032: Fence003
+    2300034: Fence004
+    2300036: Fence005
+    2300038: Glass001
+    2300040: Glass002
+    2300042: Glass003
+    2300044: Glass004
+    2300046: Glass005
+    2300048: InnerFrame001
+    2300050: InnerFrame002
+    2300052: InnerFrame003
+    2300054: InnerFrame004
+    2300056: InnerFrame005
+    2300058: Pattern001
+    2300060: Pattern002
+    2300062: Pattern003
+    2300064: Pattern004
+    2300066: Pattern005
     3300000: Bottom
     3300002: BottomFrameHex
     3300004: Fence
@@ -63,6 +125,26 @@ ModelImporter:
     3300022: Top
     3300024: TopBase
     3300026: TopFrameHex
+    3300028: Fence001
+    3300030: Fence002
+    3300032: Fence003
+    3300034: Fence004
+    3300036: Fence005
+    3300038: Glass001
+    3300040: Glass002
+    3300042: Glass003
+    3300044: Glass004
+    3300046: Glass005
+    3300048: InnerFrame001
+    3300050: InnerFrame002
+    3300052: InnerFrame003
+    3300054: InnerFrame004
+    3300056: InnerFrame005
+    3300058: Pattern001
+    3300060: Pattern002
+    3300062: Pattern003
+    3300064: Pattern004
+    3300066: Pattern005
     4300000: Top
     4300002: TopBase
     4300004: Roof
@@ -77,6 +159,26 @@ ModelImporter:
     4300022: Legs
     4300024: Glass
     4300026: Ring
+    4300028: Glass005
+    4300030: Fence005
+    4300032: Glass004
+    4300034: Fence004
+    4300036: Glass003
+    4300038: Fence003
+    4300040: InnerFrame001
+    4300042: Pattern001
+    4300044: InnerFrame002
+    4300046: Pattern002
+    4300048: InnerFrame003
+    4300050: Pattern003
+    4300052: InnerFrame004
+    4300054: Pattern004
+    4300056: InnerFrame005
+    4300058: Pattern005
+    4300060: Fence001
+    4300062: Glass001
+    4300064: Fence002
+    4300066: Glass002
     9500000: //RootNode
   materials:
     importMaterials: 1

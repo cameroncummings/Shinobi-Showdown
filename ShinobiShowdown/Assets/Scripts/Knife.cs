@@ -48,7 +48,7 @@ public class Knife : NetworkBehaviour
                 screenMessage.enabled = true;
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (other.GetComponent<KnifeManager>().CurrentAmmo < other.GetComponent<KnifeManager>().maxAmmo)
+                    if (other.GetComponent<KnifeManager>().CurrentAmmo < 7)
                         other.GetComponent<KnifeManager>().CurrentAmmo++;
                     Destroy(gameObject);
                     screenMessage.enabled = false;

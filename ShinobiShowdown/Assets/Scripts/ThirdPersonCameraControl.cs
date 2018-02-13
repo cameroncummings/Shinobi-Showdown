@@ -7,8 +7,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
     public class ThirdPersonCameraControl : MonoBehaviour
     {
         [SerializeField] private GameObject player;
-        [SerializeField] private float sensitivityX = 2.0f;//the x sensitivity forr the mouse
-        [SerializeField] private float sensitivityY = 0.75f;//the x sensitivity forr the mouse
+        [SerializeField] private float sensitivityX = 4.0f;//the x sensitivity forr the mouse
+        [SerializeField] private float sensitivityY = 1f;//the x sensitivity forr the mouse
         private PauseMenu pause;
         private Transform playerPausePosition;
 
@@ -40,10 +40,15 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                 player.GetComponent<Animator>().speed = 0;
                 return;
             }
+            else
+            {
+                player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+                player.GetComponent<Animator>().speed = 1;
+            }
             player.GetComponent<Animator>().speed = tempSpeed;
             currentX += Input.GetAxis("Mouse X") * sensitivityX;
             currentX += Input.GetAxis("Right Stick X") * sensitivityX;
-            currentX += Input.GetAxis("Horizontal") * sensitivityX;
+            currentX += Input.GetAxis("Horizontal");
 
             currentY -= Input.GetAxis("Mouse Y") * sensitivityY;
             currentY -= Input.GetAxis("Right Stick Y") * sensitivityY;

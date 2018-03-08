@@ -16,6 +16,9 @@ public class KnifeManager : NetworkBehaviour
     private int currentAmmo;
     public int CurrentAmmo { get { return currentAmmo; } set { currentAmmo = value; } }
 
+    private bool startTimer = false;
+    private float timer = 0;
+
     private void Start()
     {
         currentAmmo = maxAmmo;
@@ -28,9 +31,20 @@ public class KnifeManager : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Right Trigger")))
+        if ((Input.GetButtonDown("Fire1") || Input.GetAxisRaw("Right Trigger") != 0) && !startTimer)
         {
             CmdThrow(knifeSpawnPos.transform.position, knifeSpawnPos.transform.rotation);
+            startTimer = true;
+        }
+
+        if (startTimer)
+        {
+            timer += Time.deltaTime;
+            if (timer > 0.5f)
+            {
+                timer = 0;
+                startTimer = false;
+            }
         }
 
         currentKunaiCounter.text = "Current Kunai Count: " + currentAmmo;
@@ -39,7 +53,7 @@ public class KnifeManager : NetworkBehaviour
     [Command]
     void CmdThrow(Vector3 position, Quaternion rotation)
     {
-        if(currentAmmo>0)
+        if (currentAmmo > 0)
         {
             GameObject knife = Instantiate(knifePrefab, position, rotation);
             knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
@@ -47,6 +61,6 @@ public class KnifeManager : NetworkBehaviour
             currentAmmo--;
             NetworkServer.Spawn(knife.gameObject);
         }
-        
+
     }
 }

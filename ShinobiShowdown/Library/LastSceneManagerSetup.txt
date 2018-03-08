@@ -1,4 +1,8 @@
 sceneSetups:
-- path: Assets/Scenes/Lobby.unity
+<<<<<<< HEAD
+- path: Assets/Scenes/MainMenu.unity
+=======
+- path: Assets/TestScene.unity
+>>>>>>> 7795315c4836a6cd2f9938ee61b00ebb49b06fc6
   isLoaded: 1
   isActive: 1

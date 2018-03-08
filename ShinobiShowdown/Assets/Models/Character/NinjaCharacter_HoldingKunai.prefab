@@ -789,6 +789,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4271044224736288}
   - component: {fileID: 95867589531400658}
+  - component: {fileID: 114834434536969828}
+  - component: {fileID: 54534300862756456}
+  - component: {fileID: 136157260907537892}
   m_Layer: 0
   m_Name: NinjaCharacter_HoldingKunai
   m_TagString: Untagged
@@ -1796,6 +1799,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508723963889308}
   m_Mesh: {fileID: 4300000, guid: 8b48443d5bc7bf74591d5fbe774476b4, type: 3}
+--- !u!54 &54534300862756456
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1851151108022752}
+  serializedVersion: 2
+  m_Mass: 75
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!95 &95791116091149084
 Animator:
   serializedVersion: 3
@@ -1830,6 +1848,35 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114834434536969828
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1851151108022752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77df5b0e9a7754c47889b155d09fab2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MovingTurnSpeed: 720
+  m_StationaryTurnSpeed: 180
+  m_RunCycleLegOffset: 0.2
+  mainCameraPrefab: {fileID: 1991649841386800, guid: 706a9489f39198b43b12f081ddc44a1c,
+    type: 2}
+--- !u!136 &136157260907537892
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1851151108022752}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!137 &137892416429930924
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

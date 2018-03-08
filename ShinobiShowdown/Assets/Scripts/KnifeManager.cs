@@ -6,37 +6,43 @@ using UnityEngine.Networking;
 
 public class KnifeManager : NetworkBehaviour
 {
-    [SerializeField] private GameObject knifePrefab;
-    [SerializeField] private GameObject knifeSpawnPos;
-    [SerializeField] private float throwForce;
-    private Text currentKunaiCounter;
+    [SerializeField] private GameObject knifePrefab;//The prefab that holds the knife object
+    [SerializeField] private GameObject knifeSpawnPos;//where the knife spawns from
+    [SerializeField] private float throwForce;//how fast the knife gets thrown
 
-    public int maxAmmo;
+    private Text currentKunaiCounter;//a textbox that shows the current number of kunai
+    private Text onScreenIndicatorMessage;
 
-    private int currentAmmo;
-    public int CurrentAmmo { get { return currentAmmo; } set { currentAmmo = value; } }
+    public int maxAmmo;//how many kunais the player can carry
 
-    private bool startTimer = false;
-    private float timer = 0;
+    [SyncVar(hook = "OnChangeAmmo")] private int m_CurrentAmmo;//holds the current number of ammo that a player has
+    public int CurrentAmmo { get { return m_CurrentAmmo; } set { m_CurrentAmmo = value; } }//lets other classes access the current number of kunai
+
+    private bool startTimer = false;//used to determine if a player just threw a kunai
+    private float timer = 0;//holds how long the timer has been running
 
     private void Start()
     {
-        currentAmmo = maxAmmo;
+        //setting up some variables
         currentKunaiCounter = GameObject.FindGameObjectWithTag("KunaiCounter").GetComponent<Text>();
+        m_CurrentAmmo = maxAmmo;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer)//only runs if you are the player associated with this script
             return;
 
+        //throws a kunai knife when a player presses the left mouse button, or right trigger on a xbox controller
         if ((Input.GetButtonDown("Fire1") || Input.GetAxisRaw("Right Trigger") != 0) && !startTimer)
         {
+            //calls a command on the server to deal with the kunais across clients
             CmdThrow(knifeSpawnPos.transform.position, knifeSpawnPos.transform.rotation);
             startTimer = true;
         }
 
+        //A delay of 0.5 seconds before a player can throw their next kunai
         if (startTimer)
         {
             timer += Time.deltaTime;
@@ -47,20 +53,41 @@ public class KnifeManager : NetworkBehaviour
             }
         }
 
-        currentKunaiCounter.text = "Current Kunai Count: " + currentAmmo;
+        //updating the kunai counter text
+
+    }
+
+    public void showMessage(bool showMessage)
+    {
+        if (!isLocalPlayer)
+            return;
+
+        onScreenIndicatorMessage = GameObject.FindGameObjectWithTag("InputMessage").GetComponent<Text>();
+
+        onScreenIndicatorMessage.enabled = showMessage;
     }
 
     [Command]
     void CmdThrow(Vector3 position, Quaternion rotation)
     {
-        if (currentAmmo > 0)
+        //creates a knife on the client and the server, as long as the player has enough ammo
+        if (m_CurrentAmmo > 0)
         {
             GameObject knife = Instantiate(knifePrefab, position, rotation);
             knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
             knife.GetComponent<Rigidbody>().velocity = -knife.transform.right * throwForce;
-            currentAmmo--;
+            m_CurrentAmmo--;
             NetworkServer.Spawn(knife.gameObject);
         }
 
+    }
+
+    //changes the health UI for each individual player instead of just the host
+    void OnChangeAmmo(int currentAmmo)
+    {
+        if (!isLocalPlayer)
+            return;
+
+        currentKunaiCounter.text = "Current Kunai Count: " + currentAmmo;
     }
 }

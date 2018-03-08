@@ -1,93 +1,167 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class NinjaController : MonoBehaviour
+public class NinjaController : NetworkBehaviour
 {
 
-    [SerializeField] float m_MovingTurnSpeed = 2;
-    [SerializeField] float m_StationaryTurnSpeed = 1;
-    [SerializeField] float m_RunCycleLegOffset = 0.2f;
-    private const float Y_ANGLE_MIN = -35f;//the min value used for clamping the Y value 
-    private const float Y_ANGLE_MAX = 35f;//the max value used for clamping the Y value 
-    private float m_ForwardAmount;
-    private float m_TurnAmount;
-    private float m_CurrentX;
-    private float m_CurrentY;
-    private Transform m_MainCam;
-    private Vector3 m_Move;
-    private Animator m_Animator;
-    public GameObject mainCamera;
+    [SerializeField] private float stationaryTurnSpeed;
+    [SerializeField] private float movingTurnSpeed;
+    [SerializeField] private float moveSpeed;
 
-    // Use this for initialization
+    [SerializeField] private float cameraMaxAngleY;//the min value used for clamping the Y value 
+    [SerializeField] private float cameraMinAngleY;//the max value used for clamping the Y value 
+
+    [SerializeField] private float mouseSensitivityX;//the min value used for clamping the Y value 
+    [SerializeField] private float mouseSensitivityY;//the max value used for clamping the Y value 
+
+    private Animator m_Animator;//holds the characters animation controller  
+    private Rigidbody m_RigidBody;//holds the characters rigidbody
+
+    public Transform mainCamera;//holds the camera object inside the player object
+
+    private float m_ForwardAmount;//how much the player is trying to move forward in a frame
+    private float m_TurnAmount;//how much the player is trying to turn in a frame
+
+    private float m_CurrentX = 0;//holds the mouse movement in the x-Axis
+    private float m_CurrentY = 0;//holds the mouse movement in the y-Axis
+
+    Vector3 direction;//the direction the camera is facing
+    float distance;//the distance from the camera to the player
+
+    private float minDistance = 1;//how close the camera can get to the player
+    private float maxDistance = 2;//how far the camera can get to the player
+
+    private Vector3 originalSpawnPos;
+    public Vector3 SpawnPosition { get { return originalSpawnPos; } set { originalSpawnPos = value; } }
+
+    private GameObject m_UIElements;
+    private GameObject m_PauseMenu;
+    private bool isPaused = false;
+
+
+
     void Start()
     {
-        //mainCamera = Instantiate(mainCameraPrefab, transform);
-        m_Animator = GetComponentInChildren<Animator>();
+        if (!isLocalPlayer)
+        {
+            mainCamera.GetComponent<Camera>().enabled = false;
+            mainCamera.GetComponent<AudioListener>().enabled = false;
+
+        }
     }
 
-    // Update is called once per frame
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        //setting up some variables 
+        m_UIElements = GameObject.FindGameObjectWithTag("UIElements");
+        m_PauseMenu = GameObject.FindGameObjectWithTag("PauseScreen");
+        m_PauseMenu.SetActive(false);
+        m_Animator = gameObject.GetComponent<Animator>();
+        m_RigidBody = gameObject.GetComponent<Rigidbody>();
+        direction = mainCamera.localPosition.normalized;
+        distance = mainCamera.localPosition.magnitude;
+        originalSpawnPos = transform.position;
+    }
+
     void FixedUpdate()
     {
-        float h = CrossPlatformInputManager.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-        float v = CrossPlatformInputManager.GetAxis("Vertical") * Time.deltaTime * 3.0f;
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePauseMenu();
+        }
+        if (!isLocalPlayer || isPaused)
+            return;
+        //getting the horizontal and vertical movement values
+        float h = CrossPlatformInputManager.GetAxis("Horizontal") * Time.deltaTime;
+        float v = CrossPlatformInputManager.GetAxis("Vertical") * Time.deltaTime;
 
-        m_CurrentX += Input.GetAxis("Mouse X") * 4;
-        m_CurrentX += Input.GetAxis("Right Stick X") * 4;
-        //m_CurrentX += Input.GetAxis("Horizontal");
+        ////handles the mouse movement
+        m_CurrentX += Input.GetAxis("Mouse X") * mouseSensitivityX;
+        m_CurrentX += Input.GetAxis("Right Stick X") * mouseSensitivityX;
 
-        m_CurrentY -= Input.GetAxis("Mouse Y") * 1;
-        m_CurrentY -= Input.GetAxis("Right Stick Y") * 1;
+        m_CurrentY -= Input.GetAxis("Mouse Y") * mouseSensitivityY;
+        m_CurrentY -= Input.GetAxis("Right Stick Y") * mouseSensitivityY;
+        m_CurrentY = Mathf.Clamp(m_CurrentY, cameraMinAngleY, cameraMaxAngleY);
 
-        m_CurrentY = Mathf.Clamp(m_CurrentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
-
-        Vector3 directionVector = v * mainCamera.transform.forward + h * mainCamera.transform.right;
+        //determining the direction the player is trying to move in
+        Vector3 directionVector = v * mainCamera.forward + h * mainCamera.right;
+        directionVector.y = 0;
         if (directionVector.magnitude > 1f) directionVector.Normalize();
         directionVector = transform.InverseTransformDirection(directionVector);
         directionVector = Vector3.ProjectOnPlane(directionVector, Vector3.up);
 
+        ////how much the player is trying to turn
         m_TurnAmount = Mathf.Atan2(directionVector.x, directionVector.z);
 
+        ////determining if the player is standing still, walking, or running
+        m_ForwardAmount = 0;
 
-
-        if (Input.GetKey(KeyCode.W) || Input.GetAxisRaw("Vertical") > 0)
+        if (v > 0)
         {
             m_ForwardAmount = 0.5f;
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("LeftStickPress"))
-            {
-                m_ForwardAmount = 1;
-            }
         }
-        else
+        else if (v < 0)
         {
-            m_ForwardAmount = 0;
+            m_ForwardAmount = -0.5f;
         }
 
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("LeftStickPress"))
+        {
+            m_ForwardAmount *= 2;
+        }
 
-        float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, Mathf.Abs(m_TurnAmount));
-        transform.Rotate(0, m_TurnAmount, 0);
+        if (m_ForwardAmount < 0)
+        {
+            m_TurnAmount = 0;
+        }
 
-        m_ForwardAmount = Mathf.Clamp(m_ForwardAmount, 0, 1);
+        m_ForwardAmount = Mathf.Clamp(m_ForwardAmount, -1, 1);
         m_TurnAmount = Mathf.Clamp(m_TurnAmount, -1, 1);
 
         m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
-        //m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
+        m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
 
-        //float runCycle = Mathf.Repeat(m_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime + m_RunCycleLegOffset, 1);
+        float turnSpeed = Mathf.Lerp(stationaryTurnSpeed, movingTurnSpeed, m_ForwardAmount);
+        transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime + m_CurrentX, 0);
+        m_CurrentX = 0;
 
-        transform.GetComponent<Rigidbody>().velocity = m_ForwardAmount * transform.forward * 20;
+        mainCamera.parent.transform.rotation = transform.rotation;
+        mainCamera.parent.transform.Rotate(m_CurrentY, 0, 0);
 
-        //mainCamera.transform.position = transform.position + new Vector3(0,1.2f,0);
-        
-        //if(m_ForwardAmount <= 0)
-        //    mainCamera.transform.rotation = Quaternion.Euler(m_CurrentY, m_CurrentX, 0);
-        //if (m_ForwardAmount <= 0)
-        //{
-            mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, transform.rotation, 0.1f);
-            transform.Rotate(0,m_CurrentX, 0);
-            m_CurrentY = 0;
-            m_CurrentX = 0;
-        //}
+        Vector3 desiredCameraPos = mainCamera.TransformPoint(direction * maxDistance);
+        RaycastHit hit;
+        if (Physics.Linecast(mainCamera.position, desiredCameraPos, out hit))
+        {
+            distance = Mathf.Clamp(hit.distance, minDistance, maxDistance);
+        }
+        else
+        {
+            distance = maxDistance;
+        }
+        mainCamera.localPosition = Vector3.Slerp(mainCamera.localPosition, direction * distance, Time.deltaTime * 10);
+
+        //setting the velocity of the character based on where the camera is facing
+        Vector3 temp = m_ForwardAmount * mainCamera.forward * moveSpeed;
+        temp.y = m_RigidBody.velocity.y;
+        m_RigidBody.velocity = temp;
+    }
+    public void TogglePauseMenu()
+    {
+        if (!isPaused)
+        {
+            isPaused = true;
+            m_UIElements.SetActive(false);
+            m_PauseMenu.SetActive(true);
+        }
+        else
+        {
+            isPaused = false;
+            m_UIElements.SetActive(true);
+            m_PauseMenu.SetActive(false);
+        }
     }
 }

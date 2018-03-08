@@ -14,9 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: a51774e89126202459d930b8a9258b76
-  - enabled: 0
-    path: Assets/Scenes/Main.unity
-    guid: 56927a8b6eb7ad84b86078ea0654388b
   - enabled: 1
     path: Assets/Scenes/CamLevel.unity
-    guid: fe3bc0a263d9c2e4aabdb572b2f2ff15
+    guid: 38770568fbc08e74a846a1de5b306373

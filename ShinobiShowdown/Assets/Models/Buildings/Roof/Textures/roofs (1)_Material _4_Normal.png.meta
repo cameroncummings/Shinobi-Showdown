@@ -1,7 +1,12 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: cc25e14397c78144380561a983aed393
 timeCreated: 1518479085
+=======
+guid: 2658da08991b6074680e987754a019ef
+timeCreated: 1518483309
+>>>>>>> 7795315c4836a6cd2f9938ee61b00ebb49b06fc6
 =======
 guid: 2658da08991b6074680e987754a019ef
 timeCreated: 1518483309
@@ -14,7 +19,11 @@ TextureImporter:
     mipMapMode: 0
     enableMipMap: 1
 <<<<<<< HEAD
+<<<<<<< HEAD
     sRGBTexture: 1
+=======
+    sRGBTexture: 0
+>>>>>>> 7795315c4836a6cd2f9938ee61b00ebb49b06fc6
 =======
     sRGBTexture: 0
 >>>>>>> 7795315c4836a6cd2f9938ee61b00ebb49b06fc6
@@ -59,7 +68,11 @@ TextureImporter:
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
 <<<<<<< HEAD
+<<<<<<< HEAD
   textureType: 0
+=======
+  textureType: 1
+>>>>>>> 7795315c4836a6cd2f9938ee61b00ebb49b06fc6
 =======
   textureType: 1
 >>>>>>> 7795315c4836a6cd2f9938ee61b00ebb49b06fc6

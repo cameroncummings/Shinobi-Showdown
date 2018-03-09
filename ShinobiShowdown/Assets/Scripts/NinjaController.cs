@@ -109,18 +109,11 @@ public class NinjaController : NetworkBehaviour
             m_ForwardAmount *= 2;
         }
 
-        if (m_ForwardAmount < 0)
-        {
-            m_TurnAmount = 0;
-        }
-
         m_ForwardAmount = Mathf.Clamp(m_ForwardAmount, -1, 1);
-        m_TurnAmount = Mathf.Clamp(m_TurnAmount, -1, 1);
-
         m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
-        m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
 
         float turnSpeed = Mathf.Lerp(stationaryTurnSpeed, movingTurnSpeed, m_ForwardAmount);
+        m_TurnAmount = 0;
         transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime + m_CurrentX, 0);
         m_CurrentX = 0;
 
@@ -141,8 +134,8 @@ public class NinjaController : NetworkBehaviour
 
         //setting the velocity of the character based on where the camera is facing
         Vector3 temp = m_ForwardAmount * transform.forward * moveSpeed;
-        temp.y = m_RigidBody.velocity.y;
-        m_RigidBody.velocity = temp;
+
+        m_RigidBody.velocity = new Vector3(temp.x, m_RigidBody.velocity.y, temp.z);
     }
     public void TogglePauseMenu()
     {

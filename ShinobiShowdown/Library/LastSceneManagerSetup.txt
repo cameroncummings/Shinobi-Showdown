@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
 - path: Assets/Scenes/CamLevel.unity
-=======
-- path: Assets/TestScene.unity
->>>>>>> 4fef3bd3dddc1e3228a29434637bd454222c0a0d
   isLoaded: 1
   isActive: 1

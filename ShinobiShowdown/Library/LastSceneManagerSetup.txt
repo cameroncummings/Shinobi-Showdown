@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/Test.unity
+=======
+- path: Assets/Scenes/chelsea_WorkingScene.unity
+>>>>>>> 5ffaeccc10c4d7b5a85dde9d3b70ee25a4221e24
   isLoaded: 1
   isActive: 1

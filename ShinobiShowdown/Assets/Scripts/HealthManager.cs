@@ -31,7 +31,7 @@ public class HealthManager : NetworkBehaviour
 
     private void Update()
     {
-        if (startRespawnTimer)
+        if (startRespawnTimer && isLocalPlayer)
         {
             timer -= Time.deltaTime;
             progressBar.transform.GetChild(0).GetComponent<Image>().fillAmount = timer / 5;
@@ -40,7 +40,10 @@ public class HealthManager : NetworkBehaviour
             {
                 timer = 5;
                 startRespawnTimer = false;
-                RpcRespawn();
+                if (isServer)
+                    RpcRespawn();
+                else
+                    CmdRespawn();
             }
         }
     }
@@ -61,7 +64,10 @@ public class HealthManager : NetworkBehaviour
         {
             m_health = 0;
             Debug.Log("Dead");
-            RpcDeath();
+            if (isServer)
+                RpcDeath();
+            else
+                CmdDeath();
         }
     }
 
@@ -70,6 +76,18 @@ public class HealthManager : NetworkBehaviour
     {
         if(isLocalPlayer)
             healthBar.value = currentHealth;
+    }
+
+    [Command]
+    void CmdDeath()
+    {
+        RpcDeath();
+    }
+
+    [Command]
+    void CmdRespawn()
+    {
+        RpcRespawn();
     }
 
     [ClientRpc]

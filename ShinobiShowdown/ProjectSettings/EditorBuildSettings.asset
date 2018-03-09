@@ -9,35 +9,35 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 2c20ac6a2ff5a0e4f89d5c3a490417f9
   - enabled: 1
-    path: Assets/Scenes/CamLevel.unity
-    guid: 38770568fbc08e74a846a1de5b306373
-  - enabled: 1
-    path: Assets/Scenes/CharacterSetup.unity
-    guid: 26f5f35b8e6cf3e45bb4b2f994a03e5e
-  - enabled: 1
-    path: Assets/Scenes/chelsea_WorkingScene.unity
-    guid: 6d28fb8a2b0d5c34dba917ec630bdf49
-  - enabled: 1
-    path: Assets/Scenes/DanaTest.unity
-    guid: d5a16a17eeaf04d43a36161146cb476c
+    path: Assets/Scenes/OptionsMenu.unity
+    guid: 2e2735660e8d3c4409e894e06f04454b
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: a51774e89126202459d930b8a9258b76
   - enabled: 1
+    path: Assets/Scenes/CamLevel.unity
+    guid: 38770568fbc08e74a846a1de5b306373
+  - enabled: 0
+    path: Assets/Scenes/CharacterSetup.unity
+    guid: 26f5f35b8e6cf3e45bb4b2f994a03e5e
+  - enabled: 0
+    path: Assets/Scenes/chelsea_WorkingScene.unity
+    guid: 6d28fb8a2b0d5c34dba917ec630bdf49
+  - enabled: 0
+    path: Assets/Scenes/DanaTest.unity
+    guid: d5a16a17eeaf04d43a36161146cb476c
+  - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: 56927a8b6eb7ad84b86078ea0654388b
-  - enabled: 1
-    path: Assets/Scenes/OptionsMenu.unity
-    guid: 2e2735660e8d3c4409e894e06f04454b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/steve_WIP.unity
     guid: 48a53364a0723654ca250ed8c74f4598
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test.unity
     guid: 1dbb2296288faf944b3e9c14fd042df3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TurnerAssetSetup.unity
     guid: 7673899e6a6a05b448194be3816d5048
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WhiteBoxLevel.unity
     guid: eb397f67ebb482649b3bb45a777325ce

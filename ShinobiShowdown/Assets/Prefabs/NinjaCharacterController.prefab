@@ -2187,6 +2187,7 @@ MonoBehaviour:
   mouseSensitivityX: 4
   mouseSensitivityY: 2
   mainCamera: {fileID: 4917590077488306}
+  miniMapCamera: {fileID: 20941980598166814}
 --- !u!114 &114759539917137490
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -33,7 +33,7 @@ public class KunaiKnife : NetworkBehaviour
             {
                 this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             }
-            isMoving = false;
+            //isMoving = false;
         }
     }
 

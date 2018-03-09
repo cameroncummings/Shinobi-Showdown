@@ -20,7 +20,8 @@ public class NinjaController : NetworkBehaviour
     private Animator m_Animator;//holds the characters animation controller  
     private Rigidbody m_RigidBody;//holds the characters rigidbody
 
-    public Transform mainCamera;//holds the camera object inside the player object
+    [SerializeField] private Transform mainCamera;//holds the camera object inside the player object
+    [SerializeField] private Camera miniMapCamera;
 
     private float m_ForwardAmount;//how much the player is trying to move forward in a frame
     private float m_TurnAmount;//how much the player is trying to turn in a frame
@@ -46,7 +47,7 @@ public class NinjaController : NetworkBehaviour
         {
             mainCamera.GetComponent<Camera>().enabled = false;
             mainCamera.GetComponent<AudioListener>().enabled = false;
-
+            miniMapCamera.enabled = false;
         }
     }
 

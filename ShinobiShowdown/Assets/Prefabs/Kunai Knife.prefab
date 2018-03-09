@@ -24,9 +24,9 @@ GameObject:
   - component: {fileID: 135813171026171422}
   - component: {fileID: 23719723887735978}
   - component: {fileID: 54877697287033706}
-  - component: {fileID: 114436663847842522}
   - component: {fileID: 114439761061241554}
   - component: {fileID: 114375144675710428}
+  - component: {fileID: 114195315007750842}
   m_Layer: 0
   m_Name: Kunai Knife
   m_TagString: Untagged
@@ -41,8 +41,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1491373596554236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.2202053, y: -1.7287335, z: 6.5010366}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_LocalPosition: {x: -10.052894, y: -2.1495965, z: 4.808281}
+  m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -111,8 +111,19 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 15, y: 3, z: 3}
+  m_Size: {x: 20, y: 2, z: 1}
   m_Center: {x: 2, y: 0, z: 0}
+--- !u!114 &114195315007750842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1491373596554236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b44ee17c6fb18864187457867304a188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114375144675710428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,17 +145,6 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!114 &114436663847842522
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1491373596554236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49c7f305c2489c54eb95472855238b39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114439761061241554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -188,4 +188,4 @@ SphereCollider:
   m_Enabled: 0
   serializedVersion: 2
   m_Radius: 20
-  m_Center: {x: 2.0118818, y: 0, z: 0}
+  m_Center: {x: 2, y: 0, z: 0}

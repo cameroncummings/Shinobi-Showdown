@@ -9,7 +9,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         [SerializeField] private GameObject player;
         [SerializeField] private float sensitivityX = 4.0f;//the x sensitivity forr the mouse
         [SerializeField] private float sensitivityY = 1f;//the x sensitivity forr the mouse
-        private PauseMenu pause;
+        //private PauseMenuController pause;
         private Transform playerPausePosition;
 
         private const float Y_ANGLE_MIN = -25f;//the min value used for clamping the Y value 
@@ -24,7 +24,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Start()
         {
-            pause = GameObject.FindGameObjectWithTag("Canvas").GetComponent<PauseMenu>();
+            //pause = GameObject.FindGameObjectWithTag("Canvas").GetComponent<PauseMenuController>();
             direction = transform.localPosition.normalized;
             distance = transform.localPosition.magnitude;
         }
@@ -33,18 +33,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         private void Update()
         {
             float tempSpeed = player.GetComponent<Animator>().speed;
-            player.GetComponent<ThirdPersonUserControl>().PauseGame(pause.isPaused);
-            if (pause.isPaused)
-            {
-                player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;//| RigidbodyConstraints.FreezeRotation;
-                player.GetComponent<Animator>().speed = 0;
-                return;
-            }
-            else
-            {
-                player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-                player.GetComponent<Animator>().speed = 1;
-            }
+            //if (pause.isPaused)
+            //{
+            //    player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;//| RigidbodyConstraints.FreezeRotation;
+            //    player.GetComponent<Animator>().speed = 0;
+            //    return;
+            //}
+            //else
+            //{
+            //    player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            //    player.GetComponent<Animator>().speed = 1;
+            //}
             player.GetComponent<Animator>().speed = tempSpeed;
             currentX += Input.GetAxis("Mouse X") * sensitivityX;
             currentX += Input.GetAxis("Right Stick X") * sensitivityX;

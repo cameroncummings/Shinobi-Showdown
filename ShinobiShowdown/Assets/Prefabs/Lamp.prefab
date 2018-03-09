@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4935703329741928}
   - component: {fileID: 95269054080781740}
+  - component: {fileID: 65544764119415800}
   m_Layer: 0
   m_Name: Lamp
   m_TagString: Untagged
@@ -1056,8 +1057,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1002987767782102}
   m_LocalRotation: {x: -0.7071071, y: -0, z: -0, w: 0.70710653}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.12422571, y: 0.12422572, z: 0.12422572}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 4731945549264318}
   - {fileID: 4791529057303252}
@@ -2449,6 +2450,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1134746435131754}
   m_Mesh: {fileID: 4300002, guid: 1849ae9070c7e7846bdbf0e68b0bd6aa, type: 3}
+--- !u!65 &65544764119415800
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1002987767782102}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.45, y: 1.36, z: 2.09}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95269054080781740
 Animator:
   serializedVersion: 3

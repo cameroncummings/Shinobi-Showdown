@@ -88,6 +88,6 @@ public class KnifeManager : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        currentKunaiCounter.text = "Current Kunai Count: " + currentAmmo;
+        currentKunaiCounter.text = currentAmmo.ToString();
     }
 }

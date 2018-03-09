@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CamLevel.unity
     guid: 38770568fbc08e74a846a1de5b306373
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 56927a8b6eb7ad84b86078ea0654388b

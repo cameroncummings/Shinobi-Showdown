@@ -31,17 +31,14 @@ public class NinjaController : NetworkBehaviour
     Vector3 direction;//the direction the camera is facing
     float distance;//the distance from the camera to the player
 
-    private float minDistance = 1;//how close the camera can get to the player
+    private float minDistance = 0.5f;//how close the camera can get to the player
     private float maxDistance = 2;//how far the camera can get to the player
 
     private Vector3 originalSpawnPos;
     public Vector3 SpawnPosition { get { return originalSpawnPos; } set { originalSpawnPos = value; } }
 
     private GameObject m_UIElements;
-    private GameObject m_PauseMenu;
     private bool isPaused = false;
-
-
 
     void Start()
     {
@@ -58,8 +55,6 @@ public class NinjaController : NetworkBehaviour
         base.OnStartLocalPlayer();
         //setting up some variables 
         m_UIElements = GameObject.FindGameObjectWithTag("UIElements");
-        m_PauseMenu = GameObject.FindGameObjectWithTag("PauseScreen");
-        m_PauseMenu.SetActive(false);
         m_Animator = gameObject.GetComponent<Animator>();
         m_RigidBody = gameObject.GetComponent<Rigidbody>();
         direction = mainCamera.localPosition.normalized;
@@ -89,7 +84,6 @@ public class NinjaController : NetworkBehaviour
 
         //determining the direction the player is trying to move in
         Vector3 directionVector = v * mainCamera.forward + h * mainCamera.right;
-        directionVector.y = 0;
         if (directionVector.magnitude > 1f) directionVector.Normalize();
         directionVector = transform.InverseTransformDirection(directionVector);
         directionVector = Vector3.ProjectOnPlane(directionVector, Vector3.up);
@@ -145,7 +139,7 @@ public class NinjaController : NetworkBehaviour
         mainCamera.localPosition = Vector3.Slerp(mainCamera.localPosition, direction * distance, Time.deltaTime * 10);
 
         //setting the velocity of the character based on where the camera is facing
-        Vector3 temp = m_ForwardAmount * mainCamera.forward * moveSpeed;
+        Vector3 temp = m_ForwardAmount * transform.forward * moveSpeed;
         temp.y = m_RigidBody.velocity.y;
         m_RigidBody.velocity = temp;
     }
@@ -155,13 +149,11 @@ public class NinjaController : NetworkBehaviour
         {
             isPaused = true;
             m_UIElements.SetActive(false);
-            m_PauseMenu.SetActive(true);
         }
         else
         {
             isPaused = false;
             m_UIElements.SetActive(true);
-            m_PauseMenu.SetActive(false);
         }
     }
 }

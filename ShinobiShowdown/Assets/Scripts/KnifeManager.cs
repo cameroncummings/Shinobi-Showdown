@@ -20,12 +20,14 @@ public class KnifeManager : NetworkBehaviour
 
     private bool startTimer = false;//used to determine if a player just threw a kunai
     private float timer = 0;//holds how long the timer has been running
+    private Animator m_Animator;
 
     private void Start()
     {
         //setting up some variables
         currentKunaiCounter = GameObject.FindGameObjectWithTag("KunaiCounter").GetComponent<Text>();
         m_CurrentAmmo = maxAmmo;
+        m_Animator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -73,6 +75,7 @@ public class KnifeManager : NetworkBehaviour
         //creates a knife on the client and the server, as long as the player has enough ammo
         if (m_CurrentAmmo > 0)
         {
+            m_Animator.SetTrigger("ThrowKunai");
             GameObject knife = Instantiate(knifePrefab, position, rotation);
             knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
             knife.GetComponent<Rigidbody>().velocity = -knife.transform.right * throwForce;

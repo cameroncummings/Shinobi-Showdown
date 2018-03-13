@@ -63,6 +63,22 @@ public class NinjaController : NetworkBehaviour
         originalSpawnPos = transform.position;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            m_Animator.SetTrigger("StabKunai");
+            RaycastHit hit;
+            if (Physics.Linecast(new Vector3(transform.position.x, 1.3f, transform.position.z), transform.forward * 3, out hit))
+            {
+                if (hit.transform.tag == "Player")
+                {
+                    hit.transform.GetComponent<HealthManager>().TakeDamage(1);
+                }
+            }
+        }
+    }
+
     void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -134,7 +150,6 @@ public class NinjaController : NetworkBehaviour
 
         //setting the velocity of the character based on where the camera is facing
         Vector3 temp = m_ForwardAmount * transform.forward * moveSpeed;
-
         m_RigidBody.velocity = new Vector3(temp.x, m_RigidBody.velocity.y, temp.z);
     }
     public void TogglePauseMenu()

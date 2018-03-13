@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 44
+  controlID: 10
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 997
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &7
 MonoBehaviour:
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 45
+  controlID: 11
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 46
+  controlID: 12
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -258,11 +258,11 @@ MonoBehaviour:
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
-  - {fileID: 14}
   - {fileID: 19}
+  - {fileID: 14}
   - {fileID: 12}
   m_Selected: 0
-  m_LastSelected: 2
+  m_LastSelected: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -335,10 +335,10 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 1489
-    y: 100
-    width: 423
-    height: 910
+    x: 1492
+    y: 92
+    width: 428
+    height: 926
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -361,10 +361,10 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 468
-    y: 181
-    width: 973
-    height: 501
+    x: 368
+    y: 92
+    width: 1120
+    height: 655
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -403,19 +403,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Models/Character
+    - Assets/Skyboxes/NewSkybox
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Models/Character
+  - Assets/Skyboxes/NewSkybox
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Administrator\Documents\GitHub\Shinobi-Showdown\ShinobiShowdown
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 95}
-    m_SelectedIDs: ae460000
-    m_LastClickedID: 18094
-    m_ExpandedIDs: 00000000e2370000f63a0000743d0000d43e0000cc3f0000ae460000c84600002847000030470000c04700006048000062480000644800006648000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 519}
+    m_SelectedIDs: 2c350000
+    m_LastClickedID: 13612
+    m_ExpandedIDs: 00000000b02700002e2b0000c02d00003e2f0000503000006c370000d8370000f83700005838000060380000f038000046390000d8730000da730000dc730000de73000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -443,7 +443,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000e2370000f63a0000743d0000d43e0000cc3f0000ae460000c84600002847000030470000c047000060480000624800006448000066480000
+    m_ExpandedIDs: 00000000b02700002e2b0000c02d00003e2f0000503000006c370000d8370000f83700005838000060380000f038000046390000d8730000da730000dc730000de730000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -559,9 +559,9 @@ MonoBehaviour:
     height: 655
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 94480000
-    m_LastClickedID: 0
-    m_ExpandedIDs: a0d0ffffa4d0ffffacd0ffffb0d0ffffb8d0ffffbcd0ffffc4d0ffffc8d0ffffd0d0ffffd4d0ffffd8d0ffffdcd0ffffe0d0ffffe4d0ffffecd0fffff0d0fffff8d0fffffcd0ffff04d1ffff08d1ffff10d1ffff14d1ffff1cd1ffff20d1ffff28d1ffff2cd1ffff30d1ffff34d1ffff38d1ffff3cd1ffff40d1ffff44d1ffff48d1ffff4cd1ffff50d1ffff58d1ffff5cd1ffff60d1ffff68d1ffff6cd1ffff70d1ffff74d1ffff7ed1ffffc0d1ffff5eecffff00000000
+    m_SelectedIDs: 02deffff
+    m_LastClickedID: -8702
+    m_ExpandedIDs: 1afcffff00000000be3f00007e470000104c00006e510000426000009a600000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -579,7 +579,8 @@ MonoBehaviour:
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 4}
     m_SearchString: 
-  m_ExpandedScenes: []
+  m_ExpandedScenes:
+  - lightingPass
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -610,14 +611,14 @@ MonoBehaviour:
     width: 1120
     height: 655
   m_SceneLighting: 0
-  lastFramingTime: 4957.586250699721
+  lastFramingTime: 183.25439901278978
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2.948254, y: 1.1602728, z: -1.1781087}
+    m_Target: {x: 22.103912, y: 20.894014, z: 75.81949}
     speed: 2
-    m_Value: {x: 2.948254, y: 1.1602728, z: -1.1781087}
+    m_Value: {x: 22.103912, y: 20.894014, z: 75.81949}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -640,13 +641,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.020463312, y: -0.97667944, z: 0.18410008, w: 0.10856157}
+    m_Target: {x: 0.04716151, y: 0.94591844, z: -0.16042536, w: 0.27805176}
     speed: 2
-    m_Value: {x: 0.020463314, y: -0.9766795, z: 0.18410009, w: 0.108561575}
+    m_Value: {x: 0.04716069, y: 0.945902, z: -0.16042258, w: 0.27804694}
   m_Size:
-    m_Target: 8.265219
+    m_Target: 26.455376
     speed: 2
-    m_Value: 8.265219
+    m_Value: 26.455376
   m_Ortho:
     m_Target: 0
     speed: 2

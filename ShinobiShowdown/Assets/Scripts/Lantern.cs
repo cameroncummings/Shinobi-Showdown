@@ -5,9 +5,9 @@ using UnityEngine;
 public class Lantern : MonoBehaviour
 {
     [SerializeField] private GameObject indicatorRing;//The indicator ring that tells the player if they are going to step into the light
-    [SerializeField] private GameObject player;//the player that is the closest to the lantern used for checking the range for the indicator
+    private GameObject player;//the player that is the closest to the lantern used for checking the range for the indicator
 
-    private const float INDICATOR_RANGE = 5;//the range at which the indicator starts to display itself
+    private const float INDICATOR_RANGE = 10;//the range at which the indicator starts to display itself
 
     private void Update()
     {

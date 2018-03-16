@@ -22,6 +22,8 @@ public class NinjaController : NetworkBehaviour
 
     [SerializeField] private Transform mainCamera;//holds the camera object inside the player object
     [SerializeField] private Camera miniMapCamera;
+    [SerializeField] private GameObject smokeBombPrefab;
+    [SerializeField] private float throwForce;
 
     private float m_ForwardAmount;//how much the player is trying to move forward in a frame
     private float m_TurnAmount;//how much the player is trying to turn in a frame
@@ -40,6 +42,10 @@ public class NinjaController : NetworkBehaviour
 
     private GameObject m_UIElements;
     private bool isPaused = false;
+    private bool inRangeOfDoor = false;
+    private bool startTimer = false;
+    private float timer = 0;
+    private int m_CurrentSmokeBombs = 10;
 
     void Start()
     {
@@ -65,19 +71,66 @@ public class NinjaController : NetworkBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V))
+
+        if (!isLocalPlayer)
+            return;
+        RaycastHit hit;
+        if (Input.GetButtonDown("RightStickPress"))
         {
             m_Animator.SetTrigger("StabKunai");
-            RaycastHit hit;
             if (Physics.Linecast(new Vector3(transform.position.x, 1.3f, transform.position.z), transform.forward * 3, out hit))
             {
-                if (hit.transform.tag == "Player")
+                if (hit.collider == gameObject.GetComponent<Collider>())
                 {
                     hit.transform.GetComponent<HealthManager>().TakeDamage(1);
                 }
             }
         }
+        if (Input.GetButtonUp("Right Bumper"))
+        {
+            CmdThrowSmokeBomb(mainCamera.parent.transform.position, mainCamera.parent.transform.rotation);
+            startTimer = true;
+        }
+
+        //A delay of 0.5 seconds before a player can throw their next smoke bomb
+        if (startTimer)
+        {
+            timer += Time.deltaTime;
+            if (timer > 0.5f)
+            {
+                timer = 0;
+                startTimer = false;
+            }
+        }
     }
+
+    [Command]
+    void CmdThrowSmokeBomb(Vector3 position, Quaternion rotation)
+    {
+        //creates a knife on the client and the server, as long as the player has enough ammo
+        if (m_CurrentSmokeBombs > 0)
+        {
+            m_Animator.SetTrigger("ThrowSmokeBomb");
+            GameObject smokeBomb = Instantiate(smokeBombPrefab, position, rotation);
+            smokeBomb.transform.rotation = Quaternion.LookRotation(smokeBomb.transform.right, smokeBomb.transform.up);
+            smokeBomb.GetComponent<Rigidbody>().velocity = -smokeBomb.transform.right * throwForce;
+            m_CurrentSmokeBombs--;
+            Destroy(smokeBomb, 10);
+            NetworkServer.Spawn(smokeBomb.gameObject);
+        }
+
+    }
+
+    //changes the health UI for each individual player instead of just the host
+    void OnChangeAmmo(int currentAmmo)
+    {
+        if (!isLocalPlayer)
+            return;
+
+        //currentKunaiCounter.text = currentAmmo.ToString();
+    }
+
+
 
     void FixedUpdate()
     {

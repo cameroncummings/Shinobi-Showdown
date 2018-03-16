@@ -2116,7 +2116,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761304999029106}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
@@ -2150,7 +2150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 95125087627346150}
-  m_ParameterSendBits: 15
+  m_ParameterSendBits: 127
   param0: 
   param1: 
   param2: 
@@ -2181,13 +2181,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stationaryTurnSpeed: 180
   movingTurnSpeed: 360
-  moveSpeed: 10
-  cameraMaxAngleY: 30
-  cameraMinAngleY: -30
+  moveSpeed: 7.5
+  cameraMaxAngleY: 35
+  cameraMinAngleY: -35
   mouseSensitivityX: 4
   mouseSensitivityY: 2
   mainCamera: {fileID: 4917590077488306}
   miniMapCamera: {fileID: 20941980598166814}
+  smokeBombPrefab: {fileID: 1666154372446820, guid: 4a0e1caf6ed79b3479f6b1338d340e15,
+    type: 2}
+  throwForce: 15
 --- !u!114 &114759539917137490
 MonoBehaviour:
   m_ObjectHideFlags: 1

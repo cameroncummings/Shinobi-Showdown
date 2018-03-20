@@ -25,7 +25,7 @@ MonoBehaviour:
         motionVectorsResolution: 24
         motionVectorsAmplitude: 64
   fog:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       excludeSkybox: 1
   antialiasing:
@@ -120,7 +120,7 @@ MonoBehaviour:
         neutralWhiteLevel: 5.3
         neutralWhiteClip: 10
       basic:
-        postExposure: 1.35
+        postExposure: 1.18
         temperature: 0
         tint: 0
         hueShift: 0
@@ -134,9 +134,9 @@ MonoBehaviour:
       colorWheels:
         mode: 1
         log:
-          slope: {r: 1, g: 0.75945675, b: 0.92918885, a: 0}
-          power: {r: 1, g: 0.796558, b: 0.8441511, a: 0}
-          offset: {r: 0.99101686, g: 1, b: 0.72039497, a: 0}
+          slope: {r: 0.5229194, g: 0.7073754, b: 1, a: 0}
+          power: {r: 1, g: 0.85948306, b: 0.9180715, a: 0}
+          offset: {r: 1, g: 0.81776446, b: 0.8042424, a: 0}
         linear:
           lift: {r: 1, g: 1, b: 1, a: 0}
           gamma: {r: 0.7532888, g: 0.8483968, b: 1, a: 0}

@@ -114,7 +114,8 @@ public class HealthManager : NetworkBehaviour
             progressBar.SetActive(false);
             gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
             kunaiModel.SetActive(true);
-            GetComponent<KnifeManager>().CurrentAmmo = 7;
+            GetComponent<KnifeManager>().CurrentAmmo = GetComponent<KnifeManager>().maxAmmo;
+            GetComponent<NinjaController>().CurrentSmokeBombAmmo = GetComponent<NinjaController>().maxSmokeBombs;
             m_health = MAX_HEALTH;
             transform.position = GetComponent<NinjaController>().SpawnPosition;
         }

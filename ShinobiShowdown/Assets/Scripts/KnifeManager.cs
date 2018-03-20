@@ -40,7 +40,7 @@ public class KnifeManager : NetworkBehaviour
         if ((Input.GetButtonDown("Fire1") || Input.GetAxisRaw("Right Trigger") != 0) && !startTimer)
         {
             //calls a command on the server to deal with the kunais across clients
-            CmdThrow(knifeSpawnPos.transform.position, knifeSpawnPos.transform.rotation);
+            StartCoroutine(ThrowAfterDelay(0.4f));
             startTimer = true;
         }
 
@@ -65,24 +65,29 @@ public class KnifeManager : NetworkBehaviour
             return;
 
         onScreenIndicatorMessage = GameObject.FindGameObjectWithTag("InputMessage").GetComponent<Text>();
-
         onScreenIndicatorMessage.enabled = showMessage;
+    }
+
+    IEnumerator ThrowAfterDelay(float delay)
+    {
+        if (m_CurrentAmmo > 0)
+        {
+            m_Animator.SetTrigger("ThrowKunai");
+            yield return new WaitForSeconds(delay);
+            CmdThrow(knifeSpawnPos.transform.position, knifeSpawnPos.transform.rotation);
+        }
+        yield return null;
     }
 
     [Command]
     void CmdThrow(Vector3 position, Quaternion rotation)
     {
         //creates a knife on the client and the server, as long as the player has enough ammo
-        if (m_CurrentAmmo > 0)
-        {
-            m_Animator.SetTrigger("ThrowKunai");
-            GameObject knife = Instantiate(knifePrefab, position, rotation);
-            knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
-            knife.GetComponent<Rigidbody>().velocity = -knife.transform.right * throwForce;
-            m_CurrentAmmo--;
-            NetworkServer.Spawn(knife.gameObject);
-        }
-
+        GameObject knife = Instantiate(knifePrefab, position, rotation);
+        knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
+        knife.GetComponent<Rigidbody>().velocity = -knife.transform.right * throwForce;
+        m_CurrentAmmo--;
+        NetworkServer.Spawn(knife.gameObject);
     }
 
     //changes the health UI for each individual player instead of just the host

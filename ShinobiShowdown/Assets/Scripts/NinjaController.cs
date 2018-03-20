@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityStandardAssets.CrossPlatformInput;
 
@@ -24,6 +25,8 @@ public class NinjaController : NetworkBehaviour
     [SerializeField] private Camera miniMapCamera;
     [SerializeField] private GameObject smokeBombPrefab;
     [SerializeField] private float throwForce;
+    [SerializeField] private Transform smokeBombSpawnPOS;
+    public int maxSmokeBombs;
 
     private float m_ForwardAmount;//how much the player is trying to move forward in a frame
     private float m_TurnAmount;//how much the player is trying to turn in a frame
@@ -45,7 +48,9 @@ public class NinjaController : NetworkBehaviour
     private bool inRangeOfDoor = false;
     private bool startTimer = false;
     private float timer = 0;
-    private int m_CurrentSmokeBombs = 10;
+    [SyncVar(hook = "OnChangeAmmo")] private int m_CurrentSmokeBombs;
+    public int CurrentSmokeBombAmmo { get { return m_CurrentSmokeBombs; } set { m_CurrentSmokeBombs = value; } }
+    private Text currentSmokeBombUICounter;
 
     void Start()
     {
@@ -61,6 +66,7 @@ public class NinjaController : NetworkBehaviour
     {
         base.OnStartLocalPlayer();
         //setting up some variables 
+        m_CurrentSmokeBombs = maxSmokeBombs;
         m_UIElements = GameObject.FindGameObjectWithTag("UIElements");
         m_Animator = gameObject.GetComponent<Animator>();
         m_RigidBody = gameObject.GetComponent<Rigidbody>();
@@ -86,9 +92,9 @@ public class NinjaController : NetworkBehaviour
                 }
             }
         }
-        if (Input.GetButtonUp("Right Bumper"))
+        if (Input.GetButtonUp("Right Bumper") && !startTimer)
         {
-            CmdThrowSmokeBomb(mainCamera.parent.transform.position, mainCamera.parent.transform.rotation);
+            StartCoroutine(ThrowAfterDelay(0.4f));
             startTimer = true;
         }
 
@@ -104,20 +110,26 @@ public class NinjaController : NetworkBehaviour
         }
     }
 
+    IEnumerator ThrowAfterDelay(float delay)
+    {
+        if (m_CurrentSmokeBombs > 0)
+        {
+            m_Animator.SetTrigger("ThrowKunai");
+            yield return new WaitForSeconds(delay);
+            CmdThrowSmokeBomb(smokeBombSpawnPOS.transform.position, smokeBombSpawnPOS.transform.rotation);
+        }
+        yield return null;
+    }
+
     [Command]
     void CmdThrowSmokeBomb(Vector3 position, Quaternion rotation)
     {
-        //creates a knife on the client and the server, as long as the player has enough ammo
-        if (m_CurrentSmokeBombs > 0)
-        {
-            m_Animator.SetTrigger("ThrowSmokeBomb");
             GameObject smokeBomb = Instantiate(smokeBombPrefab, position, rotation);
             smokeBomb.transform.rotation = Quaternion.LookRotation(smokeBomb.transform.right, smokeBomb.transform.up);
             smokeBomb.GetComponent<Rigidbody>().velocity = -smokeBomb.transform.right * throwForce;
             m_CurrentSmokeBombs--;
             Destroy(smokeBomb, 10);
             NetworkServer.Spawn(smokeBomb.gameObject);
-        }
 
     }
 
@@ -126,8 +138,9 @@ public class NinjaController : NetworkBehaviour
     {
         if (!isLocalPlayer)
             return;
+        currentSmokeBombUICounter = GameObject.FindGameObjectWithTag("SmokeBombCounter").GetComponent<Text>();
+        currentSmokeBombUICounter.text = currentAmmo.ToString();
 
-        //currentKunaiCounter.text = currentAmmo.ToString();
     }
 
 

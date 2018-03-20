@@ -204,7 +204,7 @@ b7f557c19cce3b6f593e26edfe1ec859 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 f4b175ffc1eeca85d2783436b4c764a7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Effects.Explosive
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.OptionsMenu
 6746ad828d32ad6e5c07a63950fd4be6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.WaterTile
-9be60b063cede099f215436ae11d5f35 Assembly-CSharp.dll:.NinjaController
+be2c4f3303877da92f108885650bc4e5 Assembly-CSharp.dll:.NinjaController
 dbbee17bf3a12aa49414543519d0a422 Assembly-CSharp.dll:.KnifeManager
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FPSCounter
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Prototype.NetworkLobby.DraggablePanel

@@ -376,6 +376,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4799374465013336}
+  - component: {fileID: 64317562339256020}
   m_Layer: 0
   m_Name: LP_Wall
   m_TagString: Untagged
@@ -393,6 +394,7 @@ GameObject:
   - component: {fileID: 4827147982433616}
   - component: {fileID: 33551876062473346}
   - component: {fileID: 23129352815552938}
+  - component: {fileID: 64336472849105230}
   m_Layer: 0
   m_Name: ToppedWall
   m_TagString: Untagged
@@ -2519,6 +2521,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1052910637249606}
   m_Mesh: {fileID: 4300060, guid: a170a3f1f6a7108479c4c518c14a2b2f, type: 3}
+--- !u!64 &64317562339256020
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1677339414357074}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 0}
+--- !u!64 &64336472849105230
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1695077461231928}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: c873b6b9ff04e41428f1f119ac1aae4a, type: 3}
 --- !u!65 &65626752094166926
 BoxCollider:
   m_ObjectHideFlags: 1

@@ -40,6 +40,7 @@ ModelImporter:
     100064: Group1880
     100066: Group1895
     100068: //RootNode
+    100070: LP_Wall
     400000: Group1400
     400002: Group1415
     400004: Group1430
@@ -75,6 +76,7 @@ ModelImporter:
     400064: Group1880
     400066: Group1895
     400068: //RootNode
+    400070: LP_Wall
     2300000: Group1400
     2300002: Group1415
     2300004: Group1430
@@ -109,6 +111,7 @@ ModelImporter:
     2300062: Group1865
     2300064: Group1880
     2300066: Group1895
+    2300068: LP_Wall
     3300000: Group1400
     3300002: Group1415
     3300004: Group1430
@@ -143,6 +146,7 @@ ModelImporter:
     3300062: Group1865
     3300064: Group1880
     3300066: Group1895
+    3300068: LP_Wall
     4300000: Group1400
     4300002: Group1415
     4300004: Group1430
@@ -177,6 +181,7 @@ ModelImporter:
     4300062: Group1865
     4300064: Group1880
     4300066: Group1895
+    4300068: LP_Wall
   materials:
     importMaterials: 1
     materialName: 0

@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4148000041339380}
   - component: {fileID: 33213138891381320}
   - component: {fileID: 65978626320799380}
-  - component: {fileID: 135813171026171422}
   - component: {fileID: 23719723887735978}
   - component: {fileID: 54877697287033706}
   - component: {fileID: 114439761061241554}
@@ -71,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1491373596554236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.052894, y: -2.1495965, z: 4.808281}
+  m_LocalPosition: {x: -12.857311, y: 7.011884, z: 16.48101}
   m_LocalScale: {x: 0.075, y: 0.075, z: 0.075}
   m_Children:
   - {fileID: 4017282184345524}
@@ -208,18 +207,6 @@ MonoBehaviour:
     i15: 33
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!135 &135813171026171422
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1491373596554236}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 20
-  m_Center: {x: 2, y: 0, z: 0}
 --- !u!198 &198410221340991388
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -279,7 +266,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1460125187
+  randomSeed: 1964719722
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -327,7 +314,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 2.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -369,7 +356,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.73172575, g: 0.93283165, b: 0.9852941, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -674,7 +661,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    randomizeRotationDirection: 0
+    randomizeRotationDirection: 1
     maxNumParticles: 1000
     size3D: 0
     rotation3D: 0
@@ -1182,7 +1169,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 0.39215687}
+        key1: {r: 1, g: 1, b: 1, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1803,12 +1790,12 @@ ParticleSystem:
     inWorldSpace: 0
     dampen: 1
   NoiseModule:
-    enabled: 0
+    enabled: 1
     strength:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 1
-      minScalar: 1
+      minMaxState: 3
+      scalar: 0.5
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1847,7 +1834,7 @@ ParticleSystem:
         m_RotationOrder: 4
     strengthY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -1888,7 +1875,7 @@ ParticleSystem:
         m_RotationOrder: 4
     strengthZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -1928,11 +1915,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 0.5
+    frequency: 0.25
     damping: 1
-    octaves: 1
+    octaves: 2
     octaveMultiplier: 0.5
-    octaveScale: 2
+    octaveScale: 4
     quality: 2
     scrollSpeed:
       serializedVersion: 2

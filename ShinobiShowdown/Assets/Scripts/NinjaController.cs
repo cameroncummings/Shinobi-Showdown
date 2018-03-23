@@ -207,12 +207,12 @@ public class NinjaController : NetworkBehaviour
         if (Physics.Linecast(mainCamera.position, desiredCameraPos, out hit))
         {
             distance = Mathf.Clamp(hit.distance, minDistance, maxDistance);
+            mainCamera.localPosition = Vector3.Slerp(mainCamera.localPosition, direction * distance, Time.deltaTime * 10);
         }
         else
         {
             distance = maxDistance;
         }
-        mainCamera.localPosition = Vector3.Slerp(mainCamera.localPosition, direction * distance, Time.deltaTime * 10);
 
         //setting the velocity of the character based on where the camera is facing
         Vector3 temp = m_ForwardAmount * transform.forward * moveSpeed;

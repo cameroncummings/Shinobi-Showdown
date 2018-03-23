@@ -2166,6 +2166,7 @@ MonoBehaviour:
     type: 2}
   knifeSpawnPos: {fileID: 1611953280334412}
   throwForce: 30
+  m_Camera: {fileID: 20758584202298436}
   maxAmmo: 100
 --- !u!114 &114402867718392674
 MonoBehaviour:

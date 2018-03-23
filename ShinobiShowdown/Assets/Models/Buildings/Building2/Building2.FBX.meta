@@ -380,6 +380,7 @@ ModelImporter:
     100744: Object574
     100746: Object575
     100748: TopRoof
+    100750: Wall
     400000: //RootNode
     400002: Object100
     400004: Object102
@@ -755,6 +756,7 @@ ModelImporter:
     400744: Object574
     400746: Object575
     400748: TopRoof
+    400750: Wall
     2300000: Object100
     2300002: Object102
     2300004: Object103
@@ -1129,6 +1131,7 @@ ModelImporter:
     2300742: Object574
     2300744: Object575
     2300746: TopRoof
+    2300748: Wall
     3300000: Object100
     3300002: Object102
     3300004: Object103
@@ -1503,6 +1506,7 @@ ModelImporter:
     3300742: Object574
     3300744: Object575
     3300746: TopRoof
+    3300748: Wall
     4300000: Object100
     4300002: Object102
     4300004: Object103
@@ -1877,6 +1881,7 @@ ModelImporter:
     4300742: Object574
     4300744: Object575
     4300746: TopRoof
+    4300748: Wall
     9500000: //RootNode
   materials:
     importMaterials: 1

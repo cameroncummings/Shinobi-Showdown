@@ -64,6 +64,8 @@ ModelImporter:
     100112: Base HumanSpine4
     100114: CharacterLP
     100116: //RootNode
+    100118: Base HumanLPlatform
+    100120: Base HumanRPlatform
     400000: Base Human
     400002: Base HumanHead
     400004: Base HumanLCalf
@@ -123,6 +125,8 @@ ModelImporter:
     400112: Base HumanSpine4
     400114: CharacterLP
     400116: //RootNode
+    400118: Base HumanLPlatform
+    400120: Base HumanRPlatform
     4300000: CharacterLP
     7400000: Walk Cycle
     9500000: //RootNode
@@ -142,12 +146,9 @@ ModelImporter:
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar to
-      improve retargeting quality.\n\t'Base HumanLFoot' has translation animation
-      that will be discarded.\n\t'Base HumanLDigit11' has translation animation that
-      will be discarded.\n\t'Base HumanRDigit11' has translation animation that will
-      be discarded.\n\t'Base HumanSpine3' is inbetween humanoid transforms and has
-      rotation animation that will be discarded.\n\t'Base HumanSpine4' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'Base
+      improve retargeting quality.\n\t'Base HumanSpine3' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'Base HumanSpine4' is
+      inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Base
       HumanNeck1' is inbetween humanoid transforms and has rotation animation that
       will be discarded.\n"
     animationRetargetingWarnings: 

@@ -123,6 +123,8 @@ ModelImporter:
     400114: //RootNode
     4300000: CharacterLP
     7400000: Run Cycle
+    7400002: Run Left Turn
+    7400004: Run Right Turn
     9500000: //RootNode
     13700000: CharacterLP
   materials:
@@ -140,14 +142,11 @@ ModelImporter:
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar to
-      improve retargeting quality.\n\t'Base HumanLFoot' has translation animation
-      that will be discarded.\n\t'Base HumanLDigit11' has translation animation that
-      will be discarded.\n\t'Base HumanRFoot' has translation animation that will
-      be discarded.\n\t'Base HumanRDigit11' has translation animation that will be
-      discarded.\n\t'Base HumanSpine3' is inbetween humanoid transforms and has rotation
-      animation that will be discarded.\n\t'Base HumanSpine4' is inbetween humanoid
-      transforms and has rotation animation that will be discarded.\n\t'Base HumanNeck1'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+      improve retargeting quality.\n\t'Base HumanSpine3' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'Base HumanSpine4' is
+      inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Base
+      HumanNeck1' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -170,6 +169,62 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Run Left Turn
+      takeName: Take 001
+      firstFrame: 21
+      lastFrame: 41
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Run Right Turn
+      takeName: Take 001
+      firstFrame: 42
+      lastFrame: 62
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

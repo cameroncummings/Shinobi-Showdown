@@ -36,18 +36,6 @@ public class KnifeManager : NetworkBehaviour
     {
         if (!isLocalPlayer)//only runs if you are the player associated with this script
             return;
-
-        if(Input.GetButton("Fire2") || Input.GetAxisRaw("Left Trigger") != 0)
-        {
-            Vector3 zoomedInPos = new Vector3(0,0,-0.5f);
-            m_Camera.transform.localPosition = Vector3.Slerp(m_Camera.transform.localPosition, zoomedInPos, Time.deltaTime * 10);
-        }
-        else
-        {
-            Vector3 zoomedOutPos = new Vector3(0, 0, -2f);
-            m_Camera.transform.localPosition = Vector3.Slerp(m_Camera.transform.localPosition, zoomedOutPos, Time.deltaTime * 10);
-        }
-
         //throws a kunai knife when a player presses the left mouse button, or right trigger on a xbox controller
         if ((Input.GetButtonDown("Fire1") || Input.GetAxisRaw("Right Trigger") != 0) && !startTimer)
         {

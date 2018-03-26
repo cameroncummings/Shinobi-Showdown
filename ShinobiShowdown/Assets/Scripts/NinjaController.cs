@@ -124,12 +124,12 @@ public class NinjaController : NetworkBehaviour
     [Command]
     void CmdThrowSmokeBomb(Vector3 position, Quaternion rotation)
     {
-            GameObject smokeBomb = Instantiate(smokeBombPrefab, position, rotation);
-            smokeBomb.transform.rotation = Quaternion.LookRotation(smokeBomb.transform.right, smokeBomb.transform.up);
-            smokeBomb.GetComponent<Rigidbody>().velocity = -smokeBomb.transform.right * throwForce;
-            m_CurrentSmokeBombs--;
-            Destroy(smokeBomb, 10);
-            NetworkServer.Spawn(smokeBomb.gameObject);
+        GameObject smokeBomb = Instantiate(smokeBombPrefab, position, rotation);
+        smokeBomb.transform.rotation = Quaternion.LookRotation(smokeBomb.transform.right, smokeBomb.transform.up);
+        smokeBomb.GetComponent<Rigidbody>().velocity = -smokeBomb.transform.right * throwForce;
+        m_CurrentSmokeBombs--;
+        Destroy(smokeBomb, 10);
+        NetworkServer.Spawn(smokeBomb.gameObject);
 
     }
 
@@ -151,11 +151,24 @@ public class NinjaController : NetworkBehaviour
         {
             TogglePauseMenu();
         }
+
         if (!isLocalPlayer || isPaused)
             return;
+
+        if (Input.GetButtonDown("Crouch"))
+        {
+            if(!m_Animator.GetBool("IsCrouching"))
+            {
+                m_Animator.SetBool("IsCrouching", true);
+            }
+            else
+            {
+                m_Animator.SetBool("IsCrouching", false);
+            }
+        }
         //getting the horizontal and vertical movement values
-        float h = CrossPlatformInputManager.GetAxis("Horizontal") * Time.deltaTime;
-        float v = CrossPlatformInputManager.GetAxis("Vertical") * Time.deltaTime;
+        float h = CrossPlatformInputManager.GetAxis("Horizontal");
+        float v = CrossPlatformInputManager.GetAxis("Vertical");
 
         ////handles the mouse movement
         m_CurrentX += Input.GetAxis("Mouse X") * mouseSensitivityX;
@@ -172,7 +185,7 @@ public class NinjaController : NetworkBehaviour
         directionVector = Vector3.ProjectOnPlane(directionVector, Vector3.up);
 
         ////how much the player is trying to turn
-        m_TurnAmount = Mathf.Atan2(directionVector.x, directionVector.z);
+        m_TurnAmount = h;
 
         ////determining if the player is standing still, walking, or running
         m_ForwardAmount = 0;
@@ -181,22 +194,21 @@ public class NinjaController : NetworkBehaviour
         {
             m_ForwardAmount = 0.5f;
         }
-        else if (v < 0)
+        else if(v < 0)
         {
             m_ForwardAmount = -0.5f;
         }
-
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("LeftStickPress"))
         {
             m_ForwardAmount *= 2;
         }
 
-        m_ForwardAmount = Mathf.Clamp(m_ForwardAmount, -1, 1);
-        m_Animator.SetFloat("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
+        m_Animator.SetFloat("Forward", Mathf.Abs(m_ForwardAmount), 0.1f, Time.deltaTime);
+        m_TurnAmount = Mathf.Clamp(m_TurnAmount, -0.5f, 0.5f);
+        m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
 
         float turnSpeed = Mathf.Lerp(stationaryTurnSpeed, movingTurnSpeed, m_ForwardAmount);
-        m_TurnAmount = 0;
-        transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime + m_CurrentX, 0);
+        transform.Rotate(0, m_CurrentX, 0);
         m_CurrentX = 0;
 
         mainCamera.parent.transform.rotation = transform.rotation;
@@ -204,18 +216,25 @@ public class NinjaController : NetworkBehaviour
 
         Vector3 desiredCameraPos = mainCamera.TransformPoint(direction * maxDistance);
         RaycastHit hit;
-        if (Physics.Linecast(mainCamera.position, desiredCameraPos, out hit))
+        if (Input.GetButton("Fire2") || Input.GetAxisRaw("Left Trigger") != 0)
         {
-            distance = Mathf.Clamp(hit.distance, minDistance, maxDistance);
-            mainCamera.localPosition = Vector3.Slerp(mainCamera.localPosition, direction * distance, Time.deltaTime * 10);
+            distance = 0.5f;
         }
         else
         {
-            distance = maxDistance;
+            if (Physics.Linecast(mainCamera.position, desiredCameraPos, out hit))
+            {
+                distance = Mathf.Clamp(hit.distance, minDistance, maxDistance);
+            }
+            else
+            {
+                distance = maxDistance;
+            }
         }
+        mainCamera.localPosition = Vector3.Slerp(mainCamera.localPosition, direction * distance, Time.deltaTime * 10);
 
         //setting the velocity of the character based on where the camera is facing
-        Vector3 temp = m_ForwardAmount * transform.forward * moveSpeed;
+        Vector3 temp = ((m_ForwardAmount * transform.forward) + (m_TurnAmount * transform.right)) * moveSpeed;
         m_RigidBody.velocity = new Vector3(temp.x, m_RigidBody.velocity.y, temp.z);
     }
     public void TogglePauseMenu()
@@ -230,5 +249,10 @@ public class NinjaController : NetworkBehaviour
             isPaused = false;
             m_UIElements.SetActive(true);
         }
+    }
+
+    void ToggleCrouch()
+    {
+
     }
 }

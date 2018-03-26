@@ -46,17 +46,11 @@ public class KunaiKnife : NetworkBehaviour
         {
             if (other.tag == "Player")
             {
-                    if (other.GetComponent<KnifeManager>().CurrentAmmo < other.GetComponent<KnifeManager>().maxAmmo)
-                        other.GetComponent<KnifeManager>().CurrentAmmo++;
-                    Destroy(gameObject);
-                    other.GetComponent<KnifeManager>().showMessage(false);
+                if (other.GetComponent<KnifeManager>().CurrentAmmo < other.GetComponent<KnifeManager>().maxAmmo)
+                    other.GetComponent<KnifeManager>().CurrentAmmo++;
+                Destroy(gameObject);
             }
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        other.GetComponent<KnifeManager>().showMessage(false);
     }
 
 }

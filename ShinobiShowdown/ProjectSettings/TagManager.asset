@@ -18,6 +18,7 @@ TagManager:
   - PauseScreen
   - Door
   - SmokeBombCounter
+  - KunaiKnife
   layers:
   - Default
   - TransparentFX

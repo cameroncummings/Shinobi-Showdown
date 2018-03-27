@@ -1,4 +1,12 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/LobbyUI.unity
+=======
+<<<<<<< HEAD
+- path: Assets/Scenes/CamLevel.unity
+=======
+- path: Assets/Scenes/Lobby.unity
+>>>>>>> 89328ce63ecc9fb6b19fd07ba671e8912e3c19c6
+>>>>>>> a59b2e8833d6e63d17b1e75337e412b8bb7f1235
   isLoaded: 1
   isActive: 1

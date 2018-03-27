@@ -2206,7 +2206,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1401211960949822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77df5b0e9a7754c47889b155d09fab2f, type: 3}
+  m_Script: {fileID: 11500000, guid: b1d36faf965e4c54ba3e906af17a33d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stationaryTurnSpeed: 180

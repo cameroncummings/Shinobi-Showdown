@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 guid: a5b5e75e5aa36e5429fd6ebc6bd250cf
-timeCreated: 1521986701
-=======
-guid: 82f47300bce7d294292ddcd49f1a4083
-timeCreated: 1521999947
->>>>>>> 89328ce63ecc9fb6b19fd07ba671e8912e3c19c6
-licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
@@ -27,6 +20,7 @@ ModelImporter:
     4300000: Group19100
     4300002: Group38198
     4300004: Group38642
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -96,7 +90,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

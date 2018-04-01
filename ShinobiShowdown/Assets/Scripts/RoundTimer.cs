@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class RoundTimer : MonoBehaviour {
-    [SerializeField]private float durationInSeconds;
+    [SerializeField]private float timer;
 
 	// Use this for initialization
 	void Start ()
@@ -15,13 +15,27 @@ public class RoundTimer : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        durationInSeconds -= Time.deltaTime;
-        if(durationInSeconds < 0)
+        float minutes = Mathf.Floor(timer / 60);
+        float seconds = Mathf.RoundToInt(timer % 60);
+
+        string timerString = "";
+
+        if(minutes < 10)
+            timerString = "0" + minutes.ToString();
+        else
+            timerString = minutes.ToString();
+        if (seconds < 10)
+            timerString += ":0" + seconds.ToString();
+        else
+            timerString += ":" + seconds.ToString();
+        timer -= Time.deltaTime;
+
+        if(timer < 0)
         {
             EndRound();
             return;
         }
-        gameObject.GetComponent<Text>().text = ((int)durationInSeconds / 60).ToString() + ":" + ((int)durationInSeconds % 60).ToString();
+        gameObject.GetComponent<Text>().text = timerString;
 
 
 	}

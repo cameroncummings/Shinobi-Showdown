@@ -11,6 +11,10 @@ public class HealthManager : NetworkBehaviour
     private Slider healthBar;//the slider which shows how many hearts you have
     [SerializeField] private GameObject kunaiModel;
 
+    [SerializeField] private AudioSource m_DamageSFXSource;
+    [SerializeField] private AudioClip damageSFX;
+    [SerializeField] private AudioClip deathSFX;
+
     private bool startRespawnTimer;
     private float timer = 5;
     private GameObject progressBar;
@@ -55,7 +59,11 @@ public class HealthManager : NetworkBehaviour
         {
             return;
         }
-
+        if (!m_DamageSFXSource.isPlaying)
+        {
+            m_DamageSFXSource.clip = damageSFX;
+            m_DamageSFXSource.Play();
+        }
         //subtract the specified amount
         m_health -= amount;
         
@@ -63,6 +71,11 @@ public class HealthManager : NetworkBehaviour
         if (m_health <= 0)
         {
             m_health = 0;
+            if (!m_DamageSFXSource.isPlaying)
+            {
+                m_DamageSFXSource.clip = deathSFX;
+                m_DamageSFXSource.Play();
+            }
             Debug.Log("Dead");
             if (isServer)
                 RpcDeath();

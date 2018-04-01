@@ -26,6 +26,14 @@ public class NinjaController : NetworkBehaviour
     [SerializeField] private GameObject smokeBombPrefab;
     [SerializeField] private float throwForce;
     [SerializeField] private Transform smokeBombSpawnPOS;
+
+    [SerializeField] private AudioSource m_WalkingSFXSource;
+    [SerializeField] private AudioSource m_ThrowSFXSource;
+    [SerializeField] private AudioClip throwSFX;
+    [SerializeField] private AudioClip stabSFX;
+
+    [SerializeField] private MeshRenderer miniMapIcon;
+
     public int maxSmokeBombs;
 
     private float m_ForwardAmount;//how much the player is trying to move forward in a frame
@@ -44,8 +52,8 @@ public class NinjaController : NetworkBehaviour
     public Vector3 SpawnPosition { get { return originalSpawnPos; } set { originalSpawnPos = value; } }
 
     private GameObject m_UIElements;
-    private bool isPaused = false;
-    private bool inRangeOfDoor = false;
+    private GameObject m_PauseMenu;
+    public bool isPaused = false;
     private bool startTimer = false;
     private float timer = 0;
     [SyncVar(hook = "OnChangeAmmo")] private int m_CurrentSmokeBombs;
@@ -59,6 +67,7 @@ public class NinjaController : NetworkBehaviour
             mainCamera.GetComponent<Camera>().enabled = false;
             mainCamera.GetComponent<AudioListener>().enabled = false;
             miniMapCamera.enabled = false;
+            miniMapIcon.enabled = false;
         }
     }
 
@@ -68,6 +77,8 @@ public class NinjaController : NetworkBehaviour
         //setting up some variables 
         m_CurrentSmokeBombs = maxSmokeBombs;
         m_UIElements = GameObject.FindGameObjectWithTag("UIElements");
+        m_PauseMenu = GameObject.FindGameObjectWithTag("Pause Menu");
+        m_PauseMenu.SetActive(false);
         m_Animator = gameObject.GetComponent<Animator>();
         m_RigidBody = gameObject.GetComponent<Rigidbody>();
         direction = mainCamera.localPosition.normalized;
@@ -78,12 +89,17 @@ public class NinjaController : NetworkBehaviour
     private void Update()
     {
 
-        if (!isLocalPlayer)
+        if (!isLocalPlayer || isPaused)
             return;
         RaycastHit hit;
-        if (Input.GetButtonDown("RightStickPress"))
+        if (Input.GetButtonDown("RightStickPress") && !startTimer)
         {
             m_Animator.SetTrigger("StabKunai");
+            if (!m_ThrowSFXSource.isPlaying)
+            {
+                m_ThrowSFXSource.clip = stabSFX;
+                m_ThrowSFXSource.Play();
+            }
             if (Physics.Linecast(new Vector3(transform.position.x, 1.3f, transform.position.z), transform.forward * 3, out hit))
             {
                 if (hit.collider == gameObject.GetComponent<Collider>())
@@ -91,6 +107,7 @@ public class NinjaController : NetworkBehaviour
                     hit.transform.GetComponent<HealthManager>().TakeDamage(1);
                 }
             }
+            startTimer = true;
         }
         if (Input.GetButtonUp("Right Bumper") && !startTimer)
         {
@@ -115,6 +132,11 @@ public class NinjaController : NetworkBehaviour
         if (m_CurrentSmokeBombs > 0)
         {
             m_Animator.SetTrigger("ThrowKunai");
+            if (!m_ThrowSFXSource.isPlaying)
+            {
+                m_ThrowSFXSource.clip = throwSFX;
+                m_ThrowSFXSource.Play();
+            }
             yield return new WaitForSeconds(delay);
             CmdThrowSmokeBomb(smokeBombSpawnPOS.transform.position, smokeBombSpawnPOS.transform.rotation);
         }
@@ -147,7 +169,7 @@ public class NinjaController : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Pause"))
         {
             TogglePauseMenu();
         }
@@ -157,7 +179,7 @@ public class NinjaController : NetworkBehaviour
 
         if (Input.GetButtonDown("Crouch"))
         {
-            if(!m_Animator.GetBool("IsCrouching"))
+            if (!m_Animator.GetBool("IsCrouching"))
             {
                 m_Animator.SetBool("IsCrouching", true);
             }
@@ -189,18 +211,33 @@ public class NinjaController : NetworkBehaviour
 
         ////determining if the player is standing still, walking, or running
         m_ForwardAmount = 0;
-
+        moveSpeed = 5;
         if (v > 0)
         {
             m_ForwardAmount = 0.5f;
         }
-        else if(v < 0)
+        else if (v < 0)
         {
             m_ForwardAmount = -0.5f;
         }
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("LeftStickPress"))
         {
             m_ForwardAmount *= 2;
+            m_WalkingSFXSource.pitch = 2;
+            moveSpeed = 7.5f;
+        }
+        else
+        {
+            m_WalkingSFXSource.pitch = 1;
+        }
+
+        if (m_ForwardAmount != 0 || m_TurnAmount != 0)
+        {
+            m_WalkingSFXSource.UnPause();
+        }
+        else
+        {
+            m_WalkingSFXSource.Pause();
         }
 
         m_Animator.SetFloat("Forward", Mathf.Abs(m_ForwardAmount), 0.1f, Time.deltaTime);
@@ -243,16 +280,13 @@ public class NinjaController : NetworkBehaviour
         {
             isPaused = true;
             m_UIElements.SetActive(false);
+            m_PauseMenu.SetActive(true);
         }
         else
         {
             isPaused = false;
             m_UIElements.SetActive(true);
+            m_PauseMenu.SetActive(false);
         }
-    }
-
-    void ToggleCrouch()
-    {
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Target : MonoBehaviour
 {
@@ -8,8 +9,7 @@ public class Target : MonoBehaviour
     {
         if(other.tag == "KunaiKnife")
         {
-            Destroy(gameObject);
-            Debug.Log("Killed Old Guy");
+            SceneManager.LoadScene("OffenseWin");
         }
     }
 }

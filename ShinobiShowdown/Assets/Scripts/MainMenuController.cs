@@ -18,7 +18,7 @@ public class MainMenuController : MonoBehaviour
     public void StartGame_Clicked()
     {
         //loads the white box when you hit start scene
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("LobbyUI");
     }
     public void OptionsBtn_Clicked()
     {

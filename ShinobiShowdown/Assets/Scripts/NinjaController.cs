@@ -95,11 +95,8 @@ public class NinjaController : NetworkBehaviour
         if (Input.GetButtonDown("RightStickPress") && !startTimer)
         {
             m_Animator.SetTrigger("StabKunai");
-            if (!m_ThrowSFXSource.isPlaying)
-            {
-                m_ThrowSFXSource.clip = stabSFX;
-                m_ThrowSFXSource.Play();
-            }
+            m_ThrowSFXSource.clip = stabSFX;
+            m_ThrowSFXSource.Play();
             if (Physics.Linecast(new Vector3(transform.position.x, 1.3f, transform.position.z), transform.forward * 3, out hit))
             {
                 if (hit.collider == gameObject.GetComponent<Collider>())
@@ -119,7 +116,7 @@ public class NinjaController : NetworkBehaviour
         if (startTimer)
         {
             timer += Time.deltaTime;
-            if (timer > 0.5f)
+            if (timer > 0.6f)
             {
                 timer = 0;
                 startTimer = false;
@@ -132,11 +129,8 @@ public class NinjaController : NetworkBehaviour
         if (m_CurrentSmokeBombs > 0)
         {
             m_Animator.SetTrigger("ThrowKunai");
-            if (!m_ThrowSFXSource.isPlaying)
-            {
-                m_ThrowSFXSource.clip = throwSFX;
-                m_ThrowSFXSource.Play();
-            }
+            m_ThrowSFXSource.clip = throwSFX;
+            m_ThrowSFXSource.Play();
             yield return new WaitForSeconds(delay);
             CmdThrowSmokeBomb(smokeBombSpawnPOS.transform.position, smokeBombSpawnPOS.transform.rotation);
         }
@@ -211,7 +205,6 @@ public class NinjaController : NetworkBehaviour
 
         ////determining if the player is standing still, walking, or running
         m_ForwardAmount = 0;
-        moveSpeed = 5;
         if (v > 0)
         {
             m_ForwardAmount = 0.5f;
@@ -226,9 +219,10 @@ public class NinjaController : NetworkBehaviour
             m_WalkingSFXSource.pitch = 2;
             moveSpeed = 7.5f;
         }
-        else
+        else if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetButtonUp("LeftStickPress"))
         {
             m_WalkingSFXSource.pitch = 1;
+            moveSpeed = 6.5f;
         }
 
         if (m_ForwardAmount != 0 || m_TurnAmount != 0)
@@ -281,6 +275,7 @@ public class NinjaController : NetworkBehaviour
             isPaused = true;
             m_UIElements.SetActive(false);
             m_PauseMenu.SetActive(true);
+            m_PauseMenu.transform.GetChild(0).GetComponent<Button>().Select();
         }
         else
         {

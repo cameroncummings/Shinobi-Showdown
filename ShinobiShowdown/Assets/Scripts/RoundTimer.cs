@@ -1,22 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RoundTimer : MonoBehaviour {
-    [SerializeField]private float timer;
+    [SerializeField]private float duration;
 
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
-	
 	// Update is called once per frame
 	void Update ()
     {
-        float minutes = Mathf.Floor(timer / 60);
-        float seconds = Mathf.RoundToInt(timer % 60);
+        float minutes = Mathf.Floor(duration / 60);
+        float seconds = Mathf.RoundToInt(duration % 60);
 
         string timerString = "";
 
@@ -28,9 +23,9 @@ public class RoundTimer : MonoBehaviour {
             timerString += ":0" + seconds.ToString();
         else
             timerString += ":" + seconds.ToString();
-        timer -= Time.deltaTime;
+        duration -= Time.deltaTime;
 
-        if(timer < 0)
+        if(duration < 0)
         {
             EndRound();
             return;
@@ -42,11 +37,6 @@ public class RoundTimer : MonoBehaviour {
 
     void EndRound()
     {
-        //Reset Timer
-        //Reset Player Positions
-        //if three rounds have ended end the game
-        //Destroy Players
-        //Display Win Loss Message
-
+        SceneManager.LoadScene("DefenseWin");
     }
 }

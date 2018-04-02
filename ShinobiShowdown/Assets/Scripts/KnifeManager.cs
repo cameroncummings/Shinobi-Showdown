@@ -29,7 +29,6 @@ public class KnifeManager : NetworkBehaviour
     private void Start()
     {
         //setting up some variables
-        currentKunaiCounter = GameObject.FindGameObjectWithTag("KunaiCounter").GetComponent<Text>();
         m_CurrentAmmo = maxAmmo;
         m_Animator = gameObject.GetComponent<Animator>();
     }
@@ -51,7 +50,7 @@ public class KnifeManager : NetworkBehaviour
         if (startTimer)
         {
             timer += Time.deltaTime;
-            if (timer > 0.5f)
+            if (timer > 0.8f)
             {
                 timer = 0;
                 startTimer = false;
@@ -76,11 +75,8 @@ public class KnifeManager : NetworkBehaviour
         if (m_CurrentAmmo > 0)
         {
             m_Animator.SetTrigger("ThrowKunai");
-            if (!m_ThrowSFXSource.isPlaying)
-            {
                 m_ThrowSFXSource.clip = throwSFX;
                 m_ThrowSFXSource.Play();
-            }
             yield return new WaitForSeconds(delay);
             CmdThrow(knifeSpawnPos.transform.position, knifeSpawnPos.transform.rotation);
         }
@@ -104,6 +100,7 @@ public class KnifeManager : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
+        currentKunaiCounter = GameObject.FindGameObjectWithTag("KunaiCounter").GetComponent<Text>();
         currentKunaiCounter.text = currentAmmo.ToString();
     }
 }

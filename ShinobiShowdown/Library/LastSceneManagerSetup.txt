@@ -1,6 +1,10 @@
 sceneSetups:
 <<<<<<< HEAD
+<<<<<<< HEAD
 - path: Assets/Scenes/DanaLevel.unity
+=======
+- path: Assets/Scenes/DefenseWin.unity
+>>>>>>> 19089a5054652a71935a0cd4a7cc7d0a3cae33d8
 =======
 - path: Assets/Scenes/DefenseWin.unity
 >>>>>>> 19089a5054652a71935a0cd4a7cc7d0a3cae33d8

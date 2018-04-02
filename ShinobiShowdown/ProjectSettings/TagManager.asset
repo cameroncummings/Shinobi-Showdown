@@ -15,10 +15,10 @@ TagManager:
   - InputMessage
   - RespawnScreen
   - RespawnProgressBar
-  - PauseScreen
   - Door
   - SmokeBombCounter
   - KunaiKnife
+  - Pause Menu
   layers:
   - Default
   - TransparentFX

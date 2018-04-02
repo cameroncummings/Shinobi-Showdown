@@ -11,6 +11,9 @@ public class KnifeManager : NetworkBehaviour
     [SerializeField] private float throwForce;//how fast the knife gets thrown
     [SerializeField] private Camera m_Camera;//how fast the knife gets thrown
 
+    [SerializeField] private AudioSource m_ThrowSFXSource;
+    [SerializeField] private AudioClip throwSFX;
+
     private Text currentKunaiCounter;//a textbox that shows the current number of kunai
     private Text onScreenIndicatorMessage;
 
@@ -26,7 +29,6 @@ public class KnifeManager : NetworkBehaviour
     private void Start()
     {
         //setting up some variables
-        currentKunaiCounter = GameObject.FindGameObjectWithTag("KunaiCounter").GetComponent<Text>();
         m_CurrentAmmo = maxAmmo;
         m_Animator = gameObject.GetComponent<Animator>();
     }
@@ -34,7 +36,7 @@ public class KnifeManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isLocalPlayer)//only runs if you are the player associated with this script
+        if (!isLocalPlayer || gameObject.GetComponent<NinjaController>().isPaused)//only runs if you are the player associated with this script
             return;
         //throws a kunai knife when a player presses the left mouse button, or right trigger on a xbox controller
         if ((Input.GetButtonDown("Fire1") || Input.GetAxisRaw("Right Trigger") != 0) && !startTimer)
@@ -48,7 +50,7 @@ public class KnifeManager : NetworkBehaviour
         if (startTimer)
         {
             timer += Time.deltaTime;
-            if (timer > 0.5f)
+            if (timer > 0.8f)
             {
                 timer = 0;
                 startTimer = false;
@@ -73,6 +75,8 @@ public class KnifeManager : NetworkBehaviour
         if (m_CurrentAmmo > 0)
         {
             m_Animator.SetTrigger("ThrowKunai");
+                m_ThrowSFXSource.clip = throwSFX;
+                m_ThrowSFXSource.Play();
             yield return new WaitForSeconds(delay);
             CmdThrow(knifeSpawnPos.transform.position, knifeSpawnPos.transform.rotation);
         }
@@ -96,6 +100,7 @@ public class KnifeManager : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
+        currentKunaiCounter = GameObject.FindGameObjectWithTag("KunaiCounter").GetComponent<Text>();
         currentKunaiCounter.text = currentAmmo.ToString();
     }
 }

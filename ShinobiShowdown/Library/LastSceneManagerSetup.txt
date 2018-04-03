@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/LobbyUI.unity
+- path: Assets/Scenes/OffenseWin.unity
   isLoaded: 1
   isActive: 1

@@ -18,8 +18,8 @@ public class NinjaController : NetworkBehaviour
     [SerializeField] private float mouseSensitivityX;//the min value used for clamping the Y value 
     [SerializeField] private float mouseSensitivityY;//the max value used for clamping the Y value 
 
-    private Animator m_Animator;//holds the characters animation controller  
-    private Rigidbody m_RigidBody;//holds the characters rigidbody
+    [SerializeField] private Animator m_Animator;//holds the characters animation controller  
+    [SerializeField] private Rigidbody m_RigidBody;//holds the characters rigidbody
 
     [SerializeField] private Transform mainCamera;//holds the camera object inside the player object
     [SerializeField] private Camera miniMapCamera;
@@ -79,8 +79,6 @@ public class NinjaController : NetworkBehaviour
         m_UIElements = GameObject.FindGameObjectWithTag("UIElements");
         m_PauseMenu = GameObject.FindGameObjectWithTag("Pause Menu");
         m_PauseMenu.SetActive(false);
-        m_Animator = gameObject.GetComponent<Animator>();
-        m_RigidBody = gameObject.GetComponent<Rigidbody>();
         direction = mainCamera.localPosition.normalized;
         distance = mainCamera.localPosition.magnitude;
         originalSpawnPos = transform.position;
@@ -114,7 +112,7 @@ public class NinjaController : NetworkBehaviour
     {
         if (m_CurrentSmokeBombs > 0)
         {
-            m_Animator.SetTrigger("ThrowSnokeBomb");
+            m_Animator.SetTrigger("ThrowSmokeBomb");
             m_ThrowSFXSource.clip = throwSFX;
             m_ThrowSFXSource.Play();
             yield return new WaitForSeconds(delay);

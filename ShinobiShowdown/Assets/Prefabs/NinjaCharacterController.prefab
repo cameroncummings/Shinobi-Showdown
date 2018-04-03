@@ -2549,6 +2549,8 @@ MonoBehaviour:
   cameraMinAngleY: -35
   mouseSensitivityX: 4
   mouseSensitivityY: 2
+  m_Animator: {fileID: 95125087627346150}
+  m_RigidBody: {fileID: 54273611226382484}
   mainCamera: {fileID: 4917590077488306}
   miniMapCamera: {fileID: 20941980598166814}
   smokeBombPrefab: {fileID: 1689799383120910, guid: a78fc2e8b7bd26f42bda28bc2eb89b27,

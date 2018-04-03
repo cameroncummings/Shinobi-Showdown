@@ -1,8 +1,4 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/DanaLevel.unity
-=======
-- path: Assets/Scenes/VideoRecording.unity
->>>>>>> 7924696596e615246c0d9a63aba6d37228069894
+- path: Assets/Scenes/LobbyUI.unity
   isLoaded: 1
   isActive: 1

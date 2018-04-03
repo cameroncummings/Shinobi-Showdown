@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Match;
+using UnityEngine.SceneManagement;
 
 public class NetworkHUD : MonoBehaviour {
 
@@ -33,6 +34,6 @@ public class NetworkHUD : MonoBehaviour {
 
     public void Back()
     {
-        Application.LoadLevel("MainMenu");
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -30,6 +30,8 @@ public class KunaiKnife : NetworkBehaviour
             if (other.tag == "Lantern")
             {
                 other.GetComponentInChildren<Light>().enabled = false;
+                other.GetComponent<Lantern>().enabled = false;
+                other.GetComponentInChildren<SpriteRenderer>().enabled = false;
                 Destroy(gameObject);
             }
             else if (other.tag == "Player")

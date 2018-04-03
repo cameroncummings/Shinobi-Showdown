@@ -211,7 +211,6 @@ public class NinjaController : NetworkBehaviour
         m_TurnAmount = Mathf.Clamp(m_TurnAmount, -0.5f, 0.5f);
         m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
 
-        float turnSpeed = Mathf.Lerp(stationaryTurnSpeed, movingTurnSpeed, m_ForwardAmount);
         transform.Rotate(0, m_CurrentX, 0);
         m_CurrentX = 0;
 

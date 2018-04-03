@@ -25,15 +25,13 @@ public class MeleeController : NetworkBehaviour
             m_ThrowSFXSource.clip = stabSFX;
             m_ThrowSFXSource.Play();
             RaycastHit hit;
-            if (Physics.Raycast(new Vector3(transform.position.x, .75f, transform.position.z), transform.TransformDirection(Vector3.forward), out hit))
-            {
+            Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z), transform.TransformDirection(Vector3.forward), out hit);
                 distance = hit.distance;
-                if (hit.transform.tag == "Player" && distance < 2)
+                if (hit.transform.tag == "Player")
                 {
                     hit.transform.GetComponent<HealthManager>().TakeDamage(2);
                 }
                 startTimer = true;
-            }
         }
 
         if (startTimer)

@@ -1,8 +1,11 @@
 sceneSetups:
 <<<<<<< HEAD
+<<<<<<< HEAD
 - path: Assets/Scenes/DanaLevel.unity
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> bdc343273756cfb06a0bd0b49fd58c0ec8b51363
 <<<<<<< HEAD
 - path: Assets/Scenes/DanaLevel.unity
 =======
@@ -11,6 +14,9 @@ sceneSetups:
 =======
 - path: Assets/Scenes/DefenseWin.unity
 >>>>>>> 19089a5054652a71935a0cd4a7cc7d0a3cae33d8
+<<<<<<< HEAD
+>>>>>>> bdc343273756cfb06a0bd0b49fd58c0ec8b51363
+=======
 >>>>>>> bdc343273756cfb06a0bd0b49fd58c0ec8b51363
   isLoaded: 1
   isActive: 1

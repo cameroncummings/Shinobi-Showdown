@@ -2160,7 +2160,7 @@ MonoBehaviour:
   m_OnlineScene: CamLevel
   m_SpawnPrefabs:
   - {fileID: 1491373596554236, guid: f6c00aea93c90b045985227e29757b21, type: 2}
-  - {fileID: 0}
+  - {fileID: 1689799383120910, guid: a78fc2e8b7bd26f42bda28bc2eb89b27, type: 2}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:

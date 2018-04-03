@@ -100,6 +100,7 @@ public class HealthManager : NetworkBehaviour
     [Command]
     void CmdRespawn()
     {
+        m_health = MAX_HEALTH;
         RpcRespawn();
     }
 
@@ -111,7 +112,6 @@ public class HealthManager : NetworkBehaviour
             gameObject.GetComponent<NinjaController>().enabled = false;
             respawnScreen.SetActive(true);
             progressBar.SetActive(true);
-            gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
             kunaiModel.SetActive(false);
             startRespawnTimer = true;
         }
@@ -125,11 +125,11 @@ public class HealthManager : NetworkBehaviour
             gameObject.GetComponent<NinjaController>().enabled = true;
             respawnScreen.SetActive(false);
             progressBar.SetActive(false);
-            gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
             kunaiModel.SetActive(true);
             GetComponent<KnifeManager>().CurrentAmmo = GetComponent<KnifeManager>().maxAmmo;
             GetComponent<NinjaController>().CurrentSmokeBombAmmo = GetComponent<NinjaController>().maxSmokeBombs;
             m_health = MAX_HEALTH;
+            healthBar.value = m_health;
             transform.position = GetComponent<NinjaController>().SpawnPosition;
         }
     }

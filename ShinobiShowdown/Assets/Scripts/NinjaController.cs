@@ -155,17 +155,6 @@ public class NinjaController : NetworkBehaviour
         if (!isLocalPlayer || isPaused)
             return;
 
-        if (Input.GetButtonDown("Crouch"))
-        {
-            if (!m_Animator.GetBool("IsCrouching"))
-            {
-                m_Animator.SetBool("IsCrouching", true);
-            }
-            else
-            {
-                m_Animator.SetBool("IsCrouching", false);
-            }
-        }
         //getting the horizontal and vertical movement values
         float h = CrossPlatformInputManager.GetAxis("Horizontal");
         float v = CrossPlatformInputManager.GetAxis("Vertical");

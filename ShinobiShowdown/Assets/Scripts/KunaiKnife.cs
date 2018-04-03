@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
+
 public class KunaiKnife : NetworkBehaviour
 {
     //the message that displays when you are in range to pick up a knife
@@ -28,7 +29,7 @@ public class KunaiKnife : NetworkBehaviour
         {
             if (other.tag == "Lantern")
             {
-                Destroy(other.gameObject);
+                other.GetComponentInChildren<Light>().enabled = false;
                 Destroy(gameObject);
             }
             else if (other.tag == "Player")

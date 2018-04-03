@@ -31,6 +31,13 @@ public class KunaiKnife : NetworkBehaviour
             {
                 other.GetComponentInChildren<Light>().enabled = false;
                 other.GetComponent<Lantern>().enabled = false;
+                
+                foreach(Renderer r in other.GetComponentsInChildren<Renderer>())
+                {
+                    r.material.SetColor("_EmissionColor", Color.black);
+                }
+
+                other.GetComponent<SphereCollider>().enabled = false;
                 other.GetComponentInChildren<SpriteRenderer>().enabled = false;
                 Destroy(gameObject);
             }

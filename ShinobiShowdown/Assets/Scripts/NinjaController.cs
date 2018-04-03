@@ -23,9 +23,7 @@ public class NinjaController : NetworkBehaviour
 
     [SerializeField] private Transform mainCamera;//holds the camera object inside the player object
     [SerializeField] private Camera miniMapCamera;
-    [SerializeField] private GameObject smokeBombPrefab;
-    [SerializeField] private float throwForce;
-    [SerializeField] private Transform smokeBombSpawnPOS;
+    [SerializeField] private Transform throwableSpawnPOS;
 
     [SerializeField] private AudioSource m_WalkingSFXSource;
     [SerializeField] private AudioSource m_ThrowSFXSource;
@@ -34,7 +32,7 @@ public class NinjaController : NetworkBehaviour
 
     [SerializeField] private MeshRenderer miniMapIcon;
 
-    public int maxSmokeBombs;
+
 
     private float m_ForwardAmount;//how much the player is trying to move forward in a frame
     private float m_TurnAmount;//how much the player is trying to turn in a frame
@@ -56,9 +54,20 @@ public class NinjaController : NetworkBehaviour
     public bool isPaused = false;
     private bool startTimer = false;
     private float timer = 0;
-    [SyncVar(hook = "OnChangeAmmo")] private int m_CurrentSmokeBombs;
+
+    [SerializeField] private GameObject smokeBombPrefab;
+    [SerializeField] private float smokeBombThrowForce;
+    [SyncVar(hook = "OnChangeSmokeBombAmmo")] private int m_CurrentSmokeBombs;
     public int CurrentSmokeBombAmmo { get { return m_CurrentSmokeBombs; } set { m_CurrentSmokeBombs = value; } }
     private Text currentSmokeBombUICounter;
+    public int maxSmokeBombs;
+
+    [SerializeField] private GameObject knifePrefab;//The prefab that holds the knife object
+    [SerializeField] private float kunaiThrowForce;
+    [SyncVar(hook = "OnChangeKunaiAmmo")] private int m_CurrentKunaiAmmo;//holds the current number of ammo that a player has
+    public int CurrentAmmo { get { return m_CurrentKunaiAmmo; } set { m_CurrentKunaiAmmo = value; } }//lets other classes access the current number of kunai
+    private Text currentKunaiUICounter;
+    public int maxKunais;//how many kunais the player can carry
 
     void Start()
     {
@@ -76,6 +85,7 @@ public class NinjaController : NetworkBehaviour
         base.OnStartLocalPlayer();
         //setting up some variables 
         m_CurrentSmokeBombs = maxSmokeBombs;
+        m_CurrentKunaiAmmo = maxKunais;
         m_UIElements = GameObject.FindGameObjectWithTag("UIElements");
         m_PauseMenu = GameObject.FindGameObjectWithTag("Pause Menu");
         m_PauseMenu.SetActive(false);
@@ -92,7 +102,14 @@ public class NinjaController : NetworkBehaviour
 
         if (Input.GetButtonUp("Right Bumper") && !startTimer)
         {
-            StartCoroutine(ThrowAfterDelay(0.4f));
+            StartCoroutine(ThrowSmokeBombAfterDelay(0.4f));
+            startTimer = true;
+        }
+
+        if ((Input.GetButtonDown("Fire1") || Input.GetAxisRaw("Right Trigger") != 0) && !startTimer)
+        {
+            //calls a command on the server to deal with the kunais across clients
+            StartCoroutine(ThrowKunaiAfterDelay(0.4f));
             startTimer = true;
         }
 
@@ -100,7 +117,7 @@ public class NinjaController : NetworkBehaviour
         if (startTimer)
         {
             timer += Time.deltaTime;
-            if (timer > 0.6f)
+            if (timer > 1f)
             {
                 timer = 0;
                 startTimer = false;
@@ -108,7 +125,7 @@ public class NinjaController : NetworkBehaviour
         }
     }
 
-    IEnumerator ThrowAfterDelay(float delay)
+    IEnumerator ThrowSmokeBombAfterDelay(float delay)
     {
         if (m_CurrentSmokeBombs > 0)
         {
@@ -116,17 +133,58 @@ public class NinjaController : NetworkBehaviour
             m_ThrowSFXSource.clip = throwSFX;
             m_ThrowSFXSource.Play();
             yield return new WaitForSeconds(delay);
-            CmdThrowSmokeBomb(smokeBombSpawnPOS.transform.position, smokeBombSpawnPOS.transform.rotation);
+            CmdThrowSmokeBomb(throwableSpawnPOS.transform.position, throwableSpawnPOS.transform.rotation);
         }
         yield return null;
+    }
+
+    IEnumerator ThrowKunaiAfterDelay(float delay)
+    {
+        if (m_CurrentKunaiAmmo > 0)
+        {
+            m_Animator.SetTrigger("ThrowKunai");
+            m_ThrowSFXSource.clip = throwSFX;
+            m_ThrowSFXSource.Play();
+            yield return new WaitForSeconds(delay);
+            CmdThrowKunai(throwableSpawnPOS.transform.position, throwableSpawnPOS.transform.rotation);
+        }
+        yield return null;
+    }
+
+    void OnChangeKunaiAmmo(int currentAmmo)
+    {
+        if (!isLocalPlayer)
+            return;
+
+        currentKunaiUICounter = GameObject.FindGameObjectWithTag("KunaiCounter").GetComponent<Text>();
+        currentKunaiUICounter.text = currentAmmo.ToString();
+    }
+    [Command]
+    void CmdThrowKunai(Vector3 position, Quaternion rotation)
+    {
+        //creates a knife on the client and the server, as long as the player has enough ammo
+        GameObject knife = Instantiate(knifePrefab, position, rotation);
+        knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
+        knife.GetComponent<Rigidbody>().velocity = -knife.transform.right * kunaiThrowForce;
+        m_CurrentKunaiAmmo--;
+        NetworkServer.Spawn(knife.gameObject);
+    }
+
+    void OnChangeSmokeBombAmmo(int currentAmmo)
+    {
+        if (!isLocalPlayer)
+            return;
+
+        currentSmokeBombUICounter = GameObject.FindGameObjectWithTag("SmokeBombCounter").GetComponent<Text>();
+        currentSmokeBombUICounter.text = currentAmmo.ToString();
     }
 
     [Command]
     void CmdThrowSmokeBomb(Vector3 position, Quaternion rotation)
     {
         GameObject smokeBomb = Instantiate(smokeBombPrefab, position, rotation);
-        smokeBomb.transform.rotation = Quaternion.LookRotation(smokeBomb.transform.right, smokeBomb.transform.up);
-        smokeBomb.GetComponent<Rigidbody>().velocity = -smokeBomb.transform.right * throwForce;
+        smokeBomb.transform.rotation = Quaternion.LookRotation(smokeBomb.transform.up, smokeBomb.transform.forward);
+        smokeBomb.GetComponent<Rigidbody>().velocity = smokeBomb.transform.up * smokeBombThrowForce;
         m_CurrentSmokeBombs--;
         Destroy(smokeBomb, 10);
         NetworkServer.Spawn(smokeBomb.gameObject);
@@ -171,7 +229,7 @@ public class NinjaController : NetworkBehaviour
         Vector3 directionVector = v * mainCamera.forward + h * mainCamera.right;
         if (directionVector.magnitude > 1f) directionVector.Normalize();
         directionVector = transform.InverseTransformDirection(directionVector);
-        directionVector = Vector3.ProjectOnPlane(directionVector, Vector3.up);
+        directionVector = Vector3.ProjectOnPlane(directionVector, transform.up);
 
         ////how much the player is trying to turn
         m_TurnAmount = h;
@@ -238,7 +296,7 @@ public class NinjaController : NetworkBehaviour
 
         //setting the velocity of the character based on where the camera is facing
         Vector3 temp = ((m_ForwardAmount * transform.forward) + (m_TurnAmount * transform.right)) * moveSpeed;
-        m_RigidBody.velocity = new Vector3(temp.x, m_RigidBody.velocity.y, temp.z);
+        m_RigidBody.velocity = new Vector3(temp.x, m_RigidBody.velocity.y + temp.y, temp.z);
     }
     public void TogglePauseMenu()
     {

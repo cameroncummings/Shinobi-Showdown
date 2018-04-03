@@ -213,6 +213,6 @@ f4b175ffc1eeca85d2783436b4c764a7 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.FPSCounter
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Prototype.NetworkLobby.DraggablePanel
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MainMenuController
-a3b6d3cd1dacbec51820e2948993f457 Assembly-CSharp.dll:.NinjaController
+eb785020a8b9f951ee173ba87f9c87a6 Assembly-CSharp.dll:.NinjaController
 239d2cc8d353bbfcbefc27fa8f0221cc Assembly-CSharp.dll:Prototype.NetworkLobby.LobbyServerList
 0f3d4bb7128a287827d041c696039525 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.AutoMobileShaderSwitch

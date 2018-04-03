@@ -126,10 +126,10 @@ public class HealthManager : NetworkBehaviour
             respawnScreen.SetActive(false);
             progressBar.SetActive(false);
             kunaiModel.SetActive(true);
-            GetComponent<KnifeManager>().CurrentAmmo = GetComponent<KnifeManager>().maxAmmo;
+            GetComponent<NinjaController>().CurrentAmmo = GetComponent<NinjaController>().maxKunais;
             GetComponent<NinjaController>().CurrentSmokeBombAmmo = GetComponent<NinjaController>().maxSmokeBombs;
             m_health = MAX_HEALTH;
-            healthBar.value = m_health;
+            healthBar.value  = m_health;
             transform.position = GetComponent<NinjaController>().SpawnPosition;
         }
     }

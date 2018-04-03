@@ -9,6 +9,11 @@ public class Lantern : MonoBehaviour
 
     private const float INDICATOR_RANGE = 10;//the range at which the indicator starts to display itself
 
+    private void Start()
+    {
+        
+    }
+
     private void Update()
     {
         if (player == null)//checking that there is a player in the scene
@@ -34,15 +39,15 @@ public class Lantern : MonoBehaviour
         //broadcasts the players position by showing a indicator for 10 seconds
         if (other.tag == "Player")
         {
-            StartCoroutine(showPlayer(other.GetComponentInChildren<MeshRenderer>()));
+            StartCoroutine(showPlayer(other.GetComponentInChildren<SpriteRenderer>()));
         }
     }
 
-    IEnumerator showPlayer(MeshRenderer mesh)
+    IEnumerator showPlayer(SpriteRenderer sprite)
     {
-        
-        mesh.enabled = true;//shows the idicator
-        yield return new WaitForSeconds(10);//waits 10 seconds
-        mesh.enabled = false;//hides the idicator
+
+        sprite.enabled = true;//shows the idicator
+        yield return new WaitForSeconds(1);//waits 10 seconds
+        sprite.enabled = false;//hides the idicator
     }
 }

@@ -51,7 +51,7 @@ public class KnifeManager : NetworkBehaviour
         if (startTimer)
         {
             timer += Time.deltaTime;
-            if (timer > 0.8f)
+            if (timer > 1)
             {
                 timer = 0;
                 startTimer = false;
@@ -79,13 +79,13 @@ public class KnifeManager : NetworkBehaviour
                 m_ThrowSFXSource.clip = throwSFX;
                 m_ThrowSFXSource.Play();
             yield return new WaitForSeconds(delay);
-            CmdThrow(knifeSpawnPos.transform.position, knifeSpawnPos.transform.rotation);
+           // CmdThrow(knifeSpawnPos.transform.position, knifeSpawnPos.transform.rotation);
         }
         yield return null;
     }
 
     [Command]
-    void CmdThrow(Vector3 position, Quaternion rotation)
+    void CmdThrowKunai(Vector3 position, Quaternion rotation)
     {
         //creates a knife on the client and the server, as long as the player has enough ammo
         GameObject knife = Instantiate(knifePrefab, position, rotation);

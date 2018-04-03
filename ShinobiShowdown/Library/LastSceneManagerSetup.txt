@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/LobbyUI.unity
+=======
+- path: Assets/Scenes/VideoRecording.unity
+>>>>>>> d3f709a3e404d02e053a55843e31c9da85363454
   isLoaded: 1
   isActive: 1

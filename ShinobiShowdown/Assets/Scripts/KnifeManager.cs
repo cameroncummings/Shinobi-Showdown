@@ -28,6 +28,7 @@ public class KnifeManager : NetworkBehaviour
 
     private void Start()
     {
+        
         //setting up some variables
         m_CurrentAmmo = maxAmmo;
         m_Animator = gameObject.GetComponent<Animator>();
@@ -42,7 +43,7 @@ public class KnifeManager : NetworkBehaviour
         if ((Input.GetButtonDown("Fire1") || Input.GetAxisRaw("Right Trigger") != 0) && !startTimer)
         {
             //calls a command on the server to deal with the kunais across clients
-            StartCoroutine(ThrowAfterDelay(0.4f));
+            StartCoroutine(ThrowAfterDelay(0.3f));
             startTimer = true;
         }
 

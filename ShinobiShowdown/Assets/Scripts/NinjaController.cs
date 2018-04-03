@@ -91,21 +91,7 @@ public class NinjaController : NetworkBehaviour
 
         if (!isLocalPlayer || isPaused)
             return;
-        RaycastHit hit;
-        if (Input.GetButtonDown("RightStickPress") && !startTimer)
-        {
-            m_Animator.SetTrigger("StabKunai");
-            m_ThrowSFXSource.clip = stabSFX;
-            m_ThrowSFXSource.Play();
-            if (Physics.Linecast(new Vector3(transform.position.x, 1.3f, transform.position.z), transform.forward * 3, out hit))
-            {
-                if (hit.collider == gameObject.GetComponent<Collider>())
-                {
-                    hit.transform.GetComponent<HealthManager>().TakeDamage(1);
-                }
-            }
-            startTimer = true;
-        }
+
         if (Input.GetButtonUp("Right Bumper") && !startTimer)
         {
             StartCoroutine(ThrowAfterDelay(0.4f));
@@ -128,7 +114,7 @@ public class NinjaController : NetworkBehaviour
     {
         if (m_CurrentSmokeBombs > 0)
         {
-            m_Animator.SetTrigger("ThrowKunai");
+            m_Animator.SetTrigger("ThrowSnokeBomb");
             m_ThrowSFXSource.clip = throwSFX;
             m_ThrowSFXSource.Play();
             yield return new WaitForSeconds(delay);

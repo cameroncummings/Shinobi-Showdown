@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114680666320809784}
   m_Layer: 0
   m_Name: LampPost
-  m_TagString: Untagged
+  m_TagString: Lantern
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,7 +72,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1185953471946326}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -31.945, y: 2.45, z: -24.66}
+  m_LocalPosition: {x: -13.53, y: 2.141, z: -13.02}
   m_LocalScale: {x: 0.12562, y: 0.12562005, z: 0.12562005}
   m_Children:
   - {fileID: 4695448203266376}
@@ -208,7 +208,7 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1

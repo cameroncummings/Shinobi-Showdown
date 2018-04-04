@@ -1,0 +1,26 @@
+Initialize engine version: 2017.1.0f3 (472613c02cf7)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1070 (ID=0x1b81)
+    Vendor:   NVIDIA
+    VRAM:     8096 MB
+    Driver:   23.21.13.8813
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\UnityEngine.Timeline.dll (this message is harmless)
+Loading C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\UnityEngine.Timeline.dll into Unity Child Domain
+Platform assembly: C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\Cameron Cummings\Desktop\Shinobi-Showdown\ShinobiShowdown\Builds\ShinobiShowdown-LevelUpBuild_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.019 seconds
+<RI> Initializing input.
+<RI> Input initialized.

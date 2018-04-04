@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class MainMenuController : MonoBehaviour
 {
     private float timer;
-    public Image videoScreen;
+    [SerializeField] private VideoPlayer videoPlayer;
+    [SerializeField] private RawImage imageOfVideo;
+    [SerializeField] private AudioSource MenuMusic;
+
+    private void Start()
+    {
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -16,14 +24,22 @@ public class MainMenuController : MonoBehaviour
             timer += Time.deltaTime;
             if(timer > 10.0f)
             {
-                videoScreen.enabled = true;
+                imageOfVideo.enabled = true;
+                videoPlayer.enabled = true;
+                videoPlayer.Play();
+
+                MenuMusic.Pause();
             }
             
         }
         else
         {
             timer = 0;
-            videoScreen.enabled = false;
+            videoPlayer.time = 0f;
+            videoPlayer.enabled = false;
+            imageOfVideo.enabled = false;
+            videoPlayer.Stop();
+            MenuMusic.UnPause();
         }
         //Exits the game if you hit escape
         if (Input.GetKeyDown(KeyCode.Escape))

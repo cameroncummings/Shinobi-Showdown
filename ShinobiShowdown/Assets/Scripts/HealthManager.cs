@@ -17,7 +17,7 @@ public class HealthManager : NetworkBehaviour
     [SerializeField] private AudioClip deathSFX;
 
     private bool startRespawnTimer;
-    private float timer = 5;
+    private float timer = 3;
     private GameObject progressBar;
     private GameObject respawnScreen;
 
@@ -38,10 +38,10 @@ public class HealthManager : NetworkBehaviour
     {
         if (!isLocalPlayer)
             return;
-        if(m_health > 0)
+        if (m_health > 0)
         {
-                kunaiModel.GetComponent<Renderer>().enabled = true;
-                characterModel.GetComponent<Renderer>().enabled = true;
+            kunaiModel.GetComponent<Renderer>().enabled = true;
+            characterModel.GetComponent<Renderer>().enabled = true;
         }
         else
         {
@@ -55,7 +55,7 @@ public class HealthManager : NetworkBehaviour
             progressBar.transform.GetChild(2).GetComponent<Text>().text = ((int)timer + 1).ToString();
             if (timer <= 0)
             {
-                timer = 5;
+                timer = 3;
                 startRespawnTimer = false;
                 if (isServer)
                     RpcRespawn();
@@ -88,11 +88,8 @@ public class HealthManager : NetworkBehaviour
             kunaiModel.GetComponent<Renderer>().enabled = false;
             characterModel.GetComponent<Renderer>().enabled = false;
             transform.position = new Vector3(-103, 0, -60);
-            if (!m_DamageSFXSource.isPlaying)
-            {
-                m_DamageSFXSource.clip = deathSFX;
-                m_DamageSFXSource.Play();
-            }
+            m_DamageSFXSource.clip = deathSFX;
+            m_DamageSFXSource.Play();
             Debug.Log("Dead");
             if (isServer)
                 RpcDeath();

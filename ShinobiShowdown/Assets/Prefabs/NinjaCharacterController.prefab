@@ -1052,7 +1052,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4702200161488174}
   - component: {fileID: 212140616380391974}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1788,7 +1788,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1957143980250336}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.62}
+  m_LocalPosition: {x: 0, y: 0, z: 7.96}
   m_LocalScale: {x: 0.25406387, y: 0.25406387, z: 0.2822932}
   m_Children: []
   m_Father: {fileID: 4698868140628364}
@@ -2063,7 +2063,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967039
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

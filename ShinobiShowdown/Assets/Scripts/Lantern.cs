@@ -34,20 +34,26 @@ public class Lantern : MonoBehaviour
         indicatorRing.GetComponent<SpriteRenderer>().color = alpha;
     }
 
-    void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        //broadcasts the players position by showing a indicator for 10 seconds
         if (other.tag == "Player")
         {
-            StartCoroutine(showPlayer(other.GetComponentInChildren<SpriteRenderer>()));
+            other.GetComponentInChildren<SpriteRenderer>().enabled = true;
         }
     }
 
-    IEnumerator showPlayer(SpriteRenderer sprite)
+    private void OnTriggerExit(Collider other)
     {
+        if (other.tag == "Player")
+        {
+            StartCoroutine(HidePlayer(other.GetComponentInChildren<SpriteRenderer>()));
+            //other.GetComponentInChildren<SpriteRenderer>().enabled = false;
+        }
+    }
 
-        sprite.enabled = true;//shows the idicator
-        yield return new WaitForSeconds(1);//waits 10 seconds
+    IEnumerator HidePlayer(SpriteRenderer sprite)
+    {
+        yield return new WaitForSeconds(3.0f);//waits 10 seconds
         sprite.enabled = false;//hides the idicator
     }
 }

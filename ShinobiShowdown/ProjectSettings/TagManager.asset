@@ -17,8 +17,11 @@ TagManager:
   - RespawnProgressBar
   - Door
   - SmokeBombCounter
-  - KunaiKnife
   - Pause Menu
+  - Fire
+  - AttackingTeamSpawn
+  - DefendingTeamSpawn
+  - Target
   layers:
   - Default
   - TransparentFX

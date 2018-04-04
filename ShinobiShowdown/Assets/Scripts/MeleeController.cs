@@ -29,7 +29,7 @@ public class MeleeController : NetworkBehaviour
             distance = hit.distance;
             if (hit.transform.tag == "Player" && distance < 2)
             {
-                hit.transform.GetComponent<HealthManager>().TakeDamage(2);
+                CmdDamageTarget(hit.transform.gameObject, 2);
             }
             startTimer = true;
         }
@@ -43,6 +43,12 @@ public class MeleeController : NetworkBehaviour
                 startTimer = false;
             }
         }
+    }
+
+    [Command]
+    void CmdDamageTarget(GameObject targetPlayer, float damage)
+    {
+        targetPlayer.GetComponent<HealthManager>().TakeDamage((int)damage);
     }
 
 }

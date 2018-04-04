@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 114195315007750842}
   m_Layer: 0
   m_Name: Kunai Knife
-  m_TagString: KunaiKnife
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44ee17c6fb18864187457867304a188, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thrower: {fileID: 1401211960949822, guid: 2e44f6603acefc8498e8e26eecb79286, type: 2}
 --- !u!114 &114375144675710428
 MonoBehaviour:
   m_ObjectHideFlags: 1

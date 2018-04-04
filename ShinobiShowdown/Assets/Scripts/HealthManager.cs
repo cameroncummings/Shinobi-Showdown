@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class HealthManager : NetworkBehaviour
 {
     public const int MAX_HEALTH = 3;//the max health that a player can have
-    [SyncVar(hook = "OnChangeHealth")]private int m_health = MAX_HEALTH;//the current health of each player
+    [SyncVar(hook = "OnChangeHealth")] private int m_health = MAX_HEALTH;//the current health of each player
     private Slider healthBar;//the slider which shows how many hearts you have
     [SerializeField] private GameObject kunaiModel;
+    [SerializeField] private GameObject characterModel;
 
     [SerializeField] private AudioSource m_DamageSFXSource;
     [SerializeField] private AudioClip damageSFX;
@@ -35,12 +36,24 @@ public class HealthManager : NetworkBehaviour
 
     private void Update()
     {
-        if (startRespawnTimer && isLocalPlayer)
+        if (!isLocalPlayer)
+            return;
+        if(m_health > 0)
+        {
+                kunaiModel.GetComponent<Renderer>().enabled = true;
+                characterModel.GetComponent<Renderer>().enabled = true;
+        }
+        else
+        {
+            kunaiModel.GetComponent<Renderer>().enabled = false;
+            characterModel.GetComponent<Renderer>().enabled = false;
+        }
+        if (startRespawnTimer)
         {
             timer -= Time.deltaTime;
             progressBar.transform.GetChild(0).GetComponent<Image>().fillAmount = timer / 5;
             progressBar.transform.GetChild(2).GetComponent<Text>().text = ((int)timer + 1).ToString();
-            if(timer <= 0)
+            if (timer <= 0)
             {
                 timer = 5;
                 startRespawnTimer = false;
@@ -51,6 +64,7 @@ public class HealthManager : NetworkBehaviour
             }
         }
     }
+
 
     public void TakeDamage(int amount)
     {
@@ -66,11 +80,14 @@ public class HealthManager : NetworkBehaviour
         }
         //subtract the specified amount
         m_health -= amount;
-        
+
         //if the player runs out of health they die
         if (m_health <= 0)
         {
             m_health = 0;
+            kunaiModel.GetComponent<Renderer>().enabled = false;
+            characterModel.GetComponent<Renderer>().enabled = false;
+            transform.position = new Vector3(-103, 0, -60);
             if (!m_DamageSFXSource.isPlaying)
             {
                 m_DamageSFXSource.clip = deathSFX;
@@ -87,20 +104,26 @@ public class HealthManager : NetworkBehaviour
     //changes the health UI for each individual player instead of just the host
     void OnChangeHealth(int currentHealth)
     {
-        if(isLocalPlayer)
+        if (isLocalPlayer)
             healthBar.value = currentHealth;
     }
 
     [Command]
     void CmdDeath()
     {
+        kunaiModel.GetComponent<Renderer>().enabled = false;
+        characterModel.GetComponent<Renderer>().enabled = false;
         RpcDeath();
     }
 
     [Command]
     void CmdRespawn()
     {
+        kunaiModel.GetComponent<Renderer>().enabled = true;
+        characterModel.GetComponent<Renderer>().enabled = true;
         m_health = MAX_HEALTH;
+        GetComponent<NinjaController>().CurrentAmmo = GetComponent<NinjaController>().maxKunais;
+        GetComponent<NinjaController>().CurrentSmokeBombAmmo = GetComponent<NinjaController>().maxSmokeBombs;
         RpcRespawn();
     }
 
@@ -109,10 +132,11 @@ public class HealthManager : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            kunaiModel.GetComponent<Renderer>().enabled = false;
+            characterModel.GetComponent<Renderer>().enabled = false;
             gameObject.GetComponent<NinjaController>().enabled = false;
             respawnScreen.SetActive(true);
             progressBar.SetActive(true);
-            kunaiModel.SetActive(false);
             startRespawnTimer = true;
         }
     }
@@ -122,14 +146,15 @@ public class HealthManager : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            kunaiModel.GetComponent<Renderer>().enabled = true;
+            characterModel.GetComponent<Renderer>().enabled = true;
             gameObject.GetComponent<NinjaController>().enabled = true;
             respawnScreen.SetActive(false);
             progressBar.SetActive(false);
-            kunaiModel.SetActive(true);
             GetComponent<NinjaController>().CurrentAmmo = GetComponent<NinjaController>().maxKunais;
             GetComponent<NinjaController>().CurrentSmokeBombAmmo = GetComponent<NinjaController>().maxSmokeBombs;
             m_health = MAX_HEALTH;
-            healthBar.value  = m_health;
+            //healthBar.value = m_health;
             transform.position = GetComponent<NinjaController>().SpawnPosition;
         }
     }

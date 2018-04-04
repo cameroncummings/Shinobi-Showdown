@@ -2,13 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
 public class KunaiKnife : NetworkBehaviour
 {
+
+    public GameObject thrower;
     //the message that displays when you are in range to pick up a knife
     private bool isMoving = true;//used to determine if it will damage the player or if they can pick it up
+
+    private void OnEnable()
+    {
+        
+    }
 
     private void Update()
     {
@@ -46,6 +54,10 @@ public class KunaiKnife : NetworkBehaviour
                 other.GetComponent<HealthManager>().TakeDamage(1);
                 Destroy(gameObject);
             }
+            else if (other.tag == "Target" && thrower.GetComponent<NinjaController>().m_playerTeam == NinjaController.Team.ATTACKING)
+            {
+                RpcLoadEndScreen();
+            }
             else
             {
                 this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -56,11 +68,16 @@ public class KunaiKnife : NetworkBehaviour
         {
             if (other.tag == "Player")
             {
-                if (other.GetComponent<KnifeManager>().CurrentAmmo < other.GetComponent<KnifeManager>().maxAmmo)
-                    other.GetComponent<KnifeManager>().CurrentAmmo++;
+                if (other.GetComponent<NinjaController>().CurrentAmmo < other.GetComponent<NinjaController>().maxKunais)
+                    other.GetComponent<NinjaController>().CurrentAmmo++;
                 Destroy(gameObject);
             }
         }
     }
 
+    [ClientRpc]
+    void RpcLoadEndScreen()
+    {
+        SceneManager.LoadScene("OffenseWin");
+    }
 }

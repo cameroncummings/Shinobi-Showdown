@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.SceneManagement;
 
 public class NinjaController : NetworkBehaviour
 {
-
+    public enum Team { ATTACKING, DEFENDING, NULL };
+    public Team m_playerTeam;
     [SerializeField] private float stationaryTurnSpeed;
     [SerializeField] private float movingTurnSpeed;
     [SerializeField] private float moveSpeed;
@@ -29,6 +31,8 @@ public class NinjaController : NetworkBehaviour
     [SerializeField] private AudioSource m_ThrowSFXSource;
     [SerializeField] private AudioClip throwSFX;
     [SerializeField] private AudioClip stabSFX;
+    private GameObject offenseTeamSpawn;
+    private GameObject defenseTeamSpawn;
 
     [SerializeField] private MeshRenderer miniMapIcon;
 
@@ -78,46 +82,79 @@ public class NinjaController : NetworkBehaviour
             miniMapCamera.enabled = false;
             miniMapIcon.enabled = false;
         }
+        direction = mainCamera.localPosition.normalized;
+        distance = mainCamera.localPosition.magnitude;
+        originalSpawnPos = transform.position;
+
+
+        offenseTeamSpawn = GameObject.FindGameObjectWithTag("AttackingTeamSpawn");
+        defenseTeamSpawn = GameObject.FindGameObjectWithTag("DefendingTeamSpawn");
+
+        if (originalSpawnPos == offenseTeamSpawn.transform.position)
+            m_playerTeam = Team.ATTACKING;
+        else if (originalSpawnPos == defenseTeamSpawn.transform.position)
+            m_playerTeam = Team.DEFENDING;
+
+        m_CurrentSmokeBombs = maxSmokeBombs;
+        m_CurrentKunaiAmmo = maxKunais;
     }
 
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        //setting up some variables 
-        m_CurrentSmokeBombs = maxSmokeBombs;
-        m_CurrentKunaiAmmo = maxKunais;
         m_UIElements = GameObject.FindGameObjectWithTag("UIElements");
         m_PauseMenu = GameObject.FindGameObjectWithTag("Pause Menu");
         m_PauseMenu.SetActive(false);
-        direction = mainCamera.localPosition.normalized;
-        distance = mainCamera.localPosition.magnitude;
-        originalSpawnPos = transform.position;
     }
 
     private void Update()
     {
+        if (Input.GetButtonDown("Pause"))
+        {
+            TogglePauseMenu();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            Application.Quit();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
 
         if (!isLocalPlayer || isPaused)
             return;
 
         if (Input.GetButtonUp("Right Bumper") && !startTimer)
         {
-            StartCoroutine(ThrowSmokeBombAfterDelay(0.4f));
-            startTimer = true;
+            if (m_CurrentSmokeBombs > 0)
+            {
+                m_Animator.SetTrigger("ThrowSmokeBomb");
+                m_ThrowSFXSource.clip = throwSFX;
+                m_ThrowSFXSource.Play();
+                StartCoroutine(ThrowSmokeBombAfterDelay(0.4f));
+                startTimer = true;
+            }
         }
 
         if ((Input.GetButtonDown("Fire1") || Input.GetAxisRaw("Right Trigger") != 0) && !startTimer)
         {
-            //calls a command on the server to deal with the kunais across clients
-            StartCoroutine(ThrowKunaiAfterDelay(0.4f));
-            startTimer = true;
+            if (m_CurrentKunaiAmmo > 0)
+            {
+                //calls a command on the server to deal with the kunais across clients
+                m_Animator.SetTrigger("ThrowKunai");
+                m_ThrowSFXSource.clip = throwSFX;
+                m_ThrowSFXSource.Play();
+                StartCoroutine(ThrowKunaiAfterDelay(0.4f, gameObject));
+                startTimer = true;
+            }
         }
 
         //A delay of 0.5 seconds before a player can throw their next smoke bomb
         if (startTimer)
         {
             timer += Time.deltaTime;
-            if (timer > 1f)
+            if (timer > 0.8f)
             {
                 timer = 0;
                 startTimer = false;
@@ -129,26 +166,27 @@ public class NinjaController : NetworkBehaviour
     {
         if (m_CurrentSmokeBombs > 0)
         {
-            m_Animator.SetTrigger("ThrowSmokeBomb");
-            m_ThrowSFXSource.clip = throwSFX;
-            m_ThrowSFXSource.Play();
             yield return new WaitForSeconds(delay);
-            CmdThrowSmokeBomb(throwableSpawnPOS.transform.position, throwableSpawnPOS.transform.rotation);
+            if (isServer)
+                RpcThrowSmokeBomb(throwableSpawnPOS.transform.position, throwableSpawnPOS.transform.rotation);
+            else
+                CmdThrowSmokeBomb(throwableSpawnPOS.transform.position, throwableSpawnPOS.transform.rotation);
+            yield return null;
         }
-        yield return null;
     }
 
-    IEnumerator ThrowKunaiAfterDelay(float delay)
+    IEnumerator ThrowKunaiAfterDelay(float delay, GameObject thrower)
     {
         if (m_CurrentKunaiAmmo > 0)
         {
-            m_Animator.SetTrigger("ThrowKunai");
-            m_ThrowSFXSource.clip = throwSFX;
-            m_ThrowSFXSource.Play();
             yield return new WaitForSeconds(delay);
-            CmdThrowKunai(throwableSpawnPOS.transform.position, throwableSpawnPOS.transform.rotation);
+
+            if (isServer)
+                RpcThrowKunai(throwableSpawnPOS.transform.position, throwableSpawnPOS.transform.rotation, thrower);
+            else
+                CmdThrowKunai(throwableSpawnPOS.transform.position, throwableSpawnPOS.transform.rotation, thrower);
+            yield return null;
         }
-        yield return null;
     }
 
     void OnChangeKunaiAmmo(int currentAmmo)
@@ -160,14 +198,32 @@ public class NinjaController : NetworkBehaviour
         currentKunaiUICounter.text = currentAmmo.ToString();
     }
     [Command]
-    void CmdThrowKunai(Vector3 position, Quaternion rotation)
+    void CmdThrowKunai(Vector3 position, Quaternion rotation, GameObject thrower)
     {
         //creates a knife on the client and the server, as long as the player has enough ammo
-        GameObject knife = Instantiate(knifePrefab, position, rotation);
-        knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
-        knife.GetComponent<Rigidbody>().velocity = -knife.transform.right * kunaiThrowForce;
-        m_CurrentKunaiAmmo--;
-        NetworkServer.Spawn(knife.gameObject);
+        if (m_CurrentKunaiAmmo > 0)
+        {
+            m_CurrentKunaiAmmo--;
+            GameObject knife = Instantiate(knifePrefab, position, rotation);
+            knife.GetComponent<KunaiKnife>().thrower = thrower;
+            knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
+            knife.GetComponent<Rigidbody>().velocity = -knife.transform.right * kunaiThrowForce;
+            NetworkServer.Spawn(knife.gameObject);
+        }
+    }
+
+    [ClientRpc]
+    void RpcThrowKunai(Vector3 position, Quaternion rotation, GameObject thrower)
+    {
+        if (m_CurrentKunaiAmmo > 0)
+        {
+            m_CurrentKunaiAmmo--;
+            GameObject knife = Instantiate(knifePrefab, position, rotation);
+            knife.GetComponent<KunaiKnife>().thrower = thrower;
+            knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
+            knife.GetComponent<Rigidbody>().velocity = -knife.transform.right * kunaiThrowForce;
+            NetworkServer.Spawn(knife.gameObject);
+        }
     }
 
     void OnChangeSmokeBombAmmo(int currentAmmo)
@@ -182,33 +238,35 @@ public class NinjaController : NetworkBehaviour
     [Command]
     void CmdThrowSmokeBomb(Vector3 position, Quaternion rotation)
     {
-        GameObject smokeBomb = Instantiate(smokeBombPrefab, position, rotation);
-        smokeBomb.transform.rotation = Quaternion.LookRotation(smokeBomb.transform.up, smokeBomb.transform.forward);
-        smokeBomb.GetComponent<Rigidbody>().velocity = smokeBomb.transform.up * smokeBombThrowForce;
-        m_CurrentSmokeBombs--;
-        Destroy(smokeBomb, 10);
-        NetworkServer.Spawn(smokeBomb.gameObject);
+        if (m_CurrentSmokeBombs > 0)
+        {
+            m_CurrentSmokeBombs--;
+            GameObject smokeBomb = Instantiate(smokeBombPrefab, position, rotation);
+            smokeBomb.transform.rotation = Quaternion.LookRotation(smokeBomb.transform.up, smokeBomb.transform.forward);
+            smokeBomb.GetComponent<Rigidbody>().velocity = smokeBomb.transform.up * smokeBombThrowForce;
+            Destroy(smokeBomb, 10);
+            NetworkServer.Spawn(smokeBomb.gameObject);
+        }
 
     }
 
-    //changes the health UI for each individual player instead of just the host
-    void OnChangeAmmo(int currentAmmo)
+    [ClientRpc]
+    void RpcThrowSmokeBomb(Vector3 position, Quaternion rotation)
     {
-        if (!isLocalPlayer)
-            return;
-        currentSmokeBombUICounter = GameObject.FindGameObjectWithTag("SmokeBombCounter").GetComponent<Text>();
-        currentSmokeBombUICounter.text = currentAmmo.ToString();
+        if (m_CurrentSmokeBombs > 0)
+        {
+            m_CurrentSmokeBombs--;
+            GameObject smokeBomb = Instantiate(smokeBombPrefab, position, rotation);
+            smokeBomb.transform.rotation = Quaternion.LookRotation(smokeBomb.transform.up, smokeBomb.transform.forward);
+            smokeBomb.GetComponent<Rigidbody>().velocity = smokeBomb.transform.up * smokeBombThrowForce;
+            Destroy(smokeBomb, 10);
+            NetworkServer.Spawn(smokeBomb.gameObject);
+        }
 
     }
-
-
 
     void FixedUpdate()
     {
-        if (Input.GetButtonDown("Pause"))
-        {
-            TogglePauseMenu();
-        }
 
         if (!isLocalPlayer || isPaused)
             return;
@@ -296,7 +354,7 @@ public class NinjaController : NetworkBehaviour
 
         //setting the velocity of the character based on where the camera is facing
         Vector3 temp = ((m_ForwardAmount * transform.forward) + (m_TurnAmount * transform.right)) * moveSpeed;
-        m_RigidBody.velocity = new Vector3(temp.x, m_RigidBody.velocity.y + temp.y, temp.z);
+        m_RigidBody.velocity = new Vector3(temp.x, m_RigidBody.velocity.y, temp.z);
     }
     public void TogglePauseMenu()
     {

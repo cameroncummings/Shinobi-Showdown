@@ -2,12 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
-	// Update is called once per frame
-	void Update ()
+    private float timer;
+    public Image videoScreen;
+    // Update is called once per frame
+    void Update()
     {
+        if (Input.GetAxis("Mouse X") == 0 && Input.GetAxis("Mouse Y") == 0 && Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+        {
+            timer += Time.deltaTime;
+            if(timer > 10.0f)
+            {
+                videoScreen.enabled = true;
+            }
+            
+        }
+        else
+        {
+            timer = 0;
+            videoScreen.enabled = false;
+        }
         //Exits the game if you hit escape
         if (Input.GetKeyDown(KeyCode.Escape))
         {

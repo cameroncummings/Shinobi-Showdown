@@ -15,7 +15,7 @@ public class KunaiKnife : NetworkBehaviour
 
     private void OnEnable()
     {
-        
+
     }
 
     private void Update()
@@ -31,7 +31,7 @@ public class KunaiKnife : NetworkBehaviour
         mat.SetColor("_EmissionColor", finalColor);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (isMoving)
         {
@@ -39,8 +39,8 @@ public class KunaiKnife : NetworkBehaviour
             {
                 other.GetComponentInChildren<Light>().enabled = false;
                 other.GetComponent<Lantern>().enabled = false;
-                
-                foreach(Renderer r in other.GetComponentsInChildren<Renderer>())
+
+                foreach (Renderer r in other.GetComponentsInChildren<Renderer>())
                 {
                     r.material.SetColor("_EmissionColor", Color.black);
                 }
@@ -49,20 +49,22 @@ public class KunaiKnife : NetworkBehaviour
                 other.GetComponentInChildren<SpriteRenderer>().enabled = false;
                 Destroy(gameObject);
             }
-            else if (other.tag == "Player")
+            else if (other.tag == "Player" && thrower.GetComponent<NinjaController>().m_playerTeam != other.GetComponent<NinjaController>().m_playerTeam)
             {
-                other.GetComponent<HealthManager>().TakeDamage(1);
-                Destroy(gameObject);
+                    other.GetComponent<HealthManager>().TakeDamage(1);
+                    Destroy(gameObject);
             }
             else if (other.tag == "Target" && thrower.GetComponent<NinjaController>().m_playerTeam == NinjaController.Team.ATTACKING)
             {
                 RpcLoadEndScreen();
             }
-            else
+            else if(other.tag != "Player" && other.tag != "KunaiKnife")
             {
                 this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                this.GetComponent<BoxCollider>().enabled = false;
+                this.GetComponent<SphereCollider>().enabled = true;
+                isMoving = false;
             }
-            isMoving = false;
         }
         else
         {

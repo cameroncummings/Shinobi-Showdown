@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/Scenes/DanaLevel.unity
+=======
+- path: Assets/Scenes/CamLevel.unity
+>>>>>>> 1106de7183538e0e4e71f52683b89ba8d5955fbf
   isLoaded: 1
   isActive: 1

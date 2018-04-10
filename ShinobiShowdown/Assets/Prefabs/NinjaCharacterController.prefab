@@ -2558,8 +2558,10 @@ MonoBehaviour:
   moveSpeed: 5
   cameraMaxAngleY: 35
   cameraMinAngleY: -35
-  mouseSensitivityX: 3
-  mouseSensitivityY: 1
+  mouseSensitivityX: 4
+  mouseSensitivityY: 2
+  controllerSensitivityX: 3
+  controllerSensitivityY: 1
   m_Animator: {fileID: 95125087627346150}
   m_RigidBody: {fileID: 54273611226382484}
   mainCamera: {fileID: 4917590077488306}

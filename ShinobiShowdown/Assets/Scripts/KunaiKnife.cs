@@ -46,7 +46,6 @@ public class KunaiKnife : NetworkBehaviour
                 }
 
                 other.GetComponent<SphereCollider>().enabled = false;
-                other.GetComponentInChildren<SpriteRenderer>().enabled = false;
                 Destroy(gameObject);
             }
             else if (other.tag == "Player" && thrower.GetComponent<NinjaController>().m_playerTeam != other.GetComponent<NinjaController>().m_playerTeam)

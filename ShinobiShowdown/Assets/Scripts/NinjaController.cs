@@ -19,6 +19,8 @@ public class NinjaController : NetworkBehaviour
 
     [SerializeField] private float mouseSensitivityX;//the min value used for clamping the Y value 
     [SerializeField] private float mouseSensitivityY;//the max value used for clamping the Y value 
+    [SerializeField] private float controllerSensitivityX;//the min value used for clamping the Y value 
+    [SerializeField] private float controllerSensitivityY;//the max value used for clamping the Y value 
 
     [SerializeField] private Animator m_Animator;//holds the characters animation controller  
     [SerializeField] private Rigidbody m_RigidBody;//holds the characters rigidbody
@@ -162,6 +164,98 @@ public class NinjaController : NetworkBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+
+        if (!isLocalPlayer || isPaused)
+            return;
+
+        //getting the horizontal and vertical movement values
+        float h = CrossPlatformInputManager.GetAxis("Horizontal");
+        float v = CrossPlatformInputManager.GetAxis("Vertical");
+
+        ////handles the mouse movement
+        m_CurrentX += Input.GetAxis("Mouse X") * mouseSensitivityX;
+        m_CurrentX += Input.GetAxis("Right Stick X") * controllerSensitivityX;
+
+        m_CurrentY -= Input.GetAxis("Mouse Y") * mouseSensitivityY;
+        m_CurrentY -= Input.GetAxis("Right Stick Y") * controllerSensitivityY;
+        m_CurrentY = Mathf.Clamp(m_CurrentY, cameraMinAngleY, cameraMaxAngleY);
+
+        //determining the direction the player is trying to move in
+        Vector3 directionVector = v * mainCamera.forward + h * mainCamera.right;
+        if (directionVector.magnitude > 1f) directionVector.Normalize();
+        directionVector = transform.InverseTransformDirection(directionVector);
+        directionVector = Vector3.ProjectOnPlane(directionVector, transform.up);
+
+        ////how much the player is trying to turn
+        m_TurnAmount = h;
+
+        ////determining if the player is standing still, walking, or running
+        m_ForwardAmount = 0;
+        if (v > 0)
+        {
+            m_ForwardAmount = 0.5f;
+        }
+        else if (v < 0)
+        {
+            m_ForwardAmount = -0.5f;
+        }
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("LeftStickPress"))
+        {
+            m_ForwardAmount *= 2;
+            m_WalkingSFXSource.pitch = 2;
+            moveSpeed = 7.5f;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetButtonUp("LeftStickPress"))
+        {
+            m_WalkingSFXSource.pitch = 1;
+            moveSpeed = 6.5f;
+        }
+
+        if (m_ForwardAmount != 0 || m_TurnAmount != 0)
+        {
+            m_WalkingSFXSource.UnPause();
+        }
+        else
+        {
+            m_WalkingSFXSource.Pause();
+        }
+
+        m_Animator.SetFloat("Forward", Mathf.Abs(m_ForwardAmount), 0.1f, Time.deltaTime);
+        m_TurnAmount = Mathf.Clamp(m_TurnAmount, -0.5f, 0.5f);
+        m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
+
+        transform.Rotate(0, m_CurrentX, 0);
+        m_CurrentX = 0;
+
+        mainCamera.parent.transform.rotation = transform.rotation;
+        mainCamera.parent.transform.Rotate(m_CurrentY, 0, 0);
+
+        Vector3 desiredCameraPos = mainCamera.TransformPoint(direction * maxDistance);
+        RaycastHit hit;
+        if (Input.GetButton("Fire2") || Input.GetAxisRaw("Left Trigger") != 0)
+        {
+            distance = 0.5f;
+        }
+        else
+        {
+            if (Physics.Linecast(mainCamera.position, desiredCameraPos, out hit))
+            {
+                distance = Mathf.Clamp(hit.distance, minDistance, maxDistance);
+            }
+            else
+            {
+                distance = maxDistance;
+            }
+        }
+        mainCamera.localPosition = Vector3.Slerp(mainCamera.localPosition, direction * distance, Time.deltaTime * 10);
+
+        //setting the velocity of the character based on where the camera is facing
+        Vector3 temp = ((m_ForwardAmount * transform.forward) + (m_TurnAmount * transform.right)) * moveSpeed;
+        m_RigidBody.velocity = new Vector3(temp.x, m_RigidBody.velocity.y, temp.z);
+    }
+
     IEnumerator ThrowSmokeBombAfterDelay(float delay)
     {
         if (m_CurrentSmokeBombs > 0)
@@ -265,97 +359,6 @@ public class NinjaController : NetworkBehaviour
 
     }
 
-    void FixedUpdate()
-    {
-
-        if (!isLocalPlayer || isPaused)
-            return;
-
-        //getting the horizontal and vertical movement values
-        float h = CrossPlatformInputManager.GetAxis("Horizontal");
-        float v = CrossPlatformInputManager.GetAxis("Vertical");
-
-        ////handles the mouse movement
-        m_CurrentX += Input.GetAxis("Mouse X") * mouseSensitivityX;
-        m_CurrentX += Input.GetAxis("Right Stick X") * mouseSensitivityX;
-
-        m_CurrentY -= Input.GetAxis("Mouse Y") * mouseSensitivityY;
-        m_CurrentY -= Input.GetAxis("Right Stick Y") * mouseSensitivityY;
-        m_CurrentY = Mathf.Clamp(m_CurrentY, cameraMinAngleY, cameraMaxAngleY);
-
-        //determining the direction the player is trying to move in
-        Vector3 directionVector = v * mainCamera.forward + h * mainCamera.right;
-        if (directionVector.magnitude > 1f) directionVector.Normalize();
-        directionVector = transform.InverseTransformDirection(directionVector);
-        directionVector = Vector3.ProjectOnPlane(directionVector, transform.up);
-
-        ////how much the player is trying to turn
-        m_TurnAmount = h;
-
-        ////determining if the player is standing still, walking, or running
-        m_ForwardAmount = 0;
-        if (v > 0)
-        {
-            m_ForwardAmount = 0.5f;
-        }
-        else if (v < 0)
-        {
-            m_ForwardAmount = -0.5f;
-        }
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("LeftStickPress"))
-        {
-            m_ForwardAmount *= 2;
-            m_WalkingSFXSource.pitch = 2;
-            moveSpeed = 7.5f;
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetButtonUp("LeftStickPress"))
-        {
-            m_WalkingSFXSource.pitch = 1;
-            moveSpeed = 6.5f;
-        }
-
-        if (m_ForwardAmount != 0 || m_TurnAmount != 0)
-        {
-            m_WalkingSFXSource.UnPause();
-        }
-        else
-        {
-            m_WalkingSFXSource.Pause();
-        }
-
-        m_Animator.SetFloat("Forward", Mathf.Abs(m_ForwardAmount), 0.1f, Time.deltaTime);
-        m_TurnAmount = Mathf.Clamp(m_TurnAmount, -0.5f, 0.5f);
-        m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
-
-        transform.Rotate(0, m_CurrentX, 0);
-        m_CurrentX = 0;
-
-        mainCamera.parent.transform.rotation = transform.rotation;
-        mainCamera.parent.transform.Rotate(m_CurrentY, 0, 0);
-
-        Vector3 desiredCameraPos = mainCamera.TransformPoint(direction * maxDistance);
-        RaycastHit hit;
-        if (Input.GetButton("Fire2") || Input.GetAxisRaw("Left Trigger") != 0)
-        {
-            distance = 0.5f;
-        }
-        else
-        {
-            if (Physics.Linecast(mainCamera.position, desiredCameraPos, out hit))
-            {
-                distance = Mathf.Clamp(hit.distance, minDistance, maxDistance);
-            }
-            else
-            {
-                distance = maxDistance;
-            }
-        }
-        mainCamera.localPosition = Vector3.Slerp(mainCamera.localPosition, direction * distance, Time.deltaTime * 10);
-
-        //setting the velocity of the character based on where the camera is facing
-        Vector3 temp = ((m_ForwardAmount * transform.forward) + (m_TurnAmount * transform.right)) * moveSpeed;
-        m_RigidBody.velocity = new Vector3(temp.x, m_RigidBody.velocity.y, temp.z);
-    }
     public void TogglePauseMenu()
     {
         if (!isPaused)

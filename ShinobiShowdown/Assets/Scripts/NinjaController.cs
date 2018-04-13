@@ -50,7 +50,7 @@ public class NinjaController : NetworkBehaviour
     float distance;//the distance from the camera to the player
 
     private float minDistance = 0.5f;//how close the camera can get to the player
-    private float maxDistance = 2;//how far the camera can get to the player
+    private float maxDistance = 1.5f;//how far the camera can get to the player
 
     private Vector3 originalSpawnPos;
     public Vector3 SpawnPosition { get { return originalSpawnPos; } set { originalSpawnPos = value; } }
@@ -134,7 +134,7 @@ public class NinjaController : NetworkBehaviour
                 m_Animator.SetTrigger("ThrowSmokeBomb");
                 m_ThrowSFXSource.clip = throwSFX;
                 m_ThrowSFXSource.Play();
-                StartCoroutine(ThrowSmokeBombAfterDelay(0.4f));
+                StartCoroutine(ThrowSmokeBombAfterDelay(0.2f));
                 startTimer = true;
             }
         }
@@ -147,7 +147,7 @@ public class NinjaController : NetworkBehaviour
                 m_Animator.SetTrigger("ThrowKunai");
                 m_ThrowSFXSource.clip = throwSFX;
                 m_ThrowSFXSource.Play();
-                StartCoroutine(ThrowKunaiAfterDelay(0.4f, gameObject));
+                StartCoroutine(ThrowKunaiAfterDelay(0.2f, gameObject));
                 startTimer = true;
             }
         }
@@ -201,16 +201,17 @@ public class NinjaController : NetworkBehaviour
         {
             m_ForwardAmount = -0.5f;
         }
+
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetButton("LeftStickPress"))
         {
             m_ForwardAmount *= 2;
             m_WalkingSFXSource.pitch = 2;
             moveSpeed = 7.5f;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetButtonUp("LeftStickPress"))
+        else
         {
             m_WalkingSFXSource.pitch = 1;
-            moveSpeed = 6.5f;
+            moveSpeed = 5f;
         }
 
         if (m_ForwardAmount != 0 || m_TurnAmount != 0)

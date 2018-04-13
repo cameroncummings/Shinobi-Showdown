@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 4888414659876532}
   - component: {fileID: 108237333936651202}
   - component: {fileID: 95344293401816452}
+  - component: {fileID: 114942686640282398}
   m_Layer: 0
   m_Name: Point light
   m_TagString: Untagged
@@ -84,7 +85,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1758639777967816}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -13.53, y: 2.393, z: -21.5}
+  m_LocalPosition: {x: -14.41, y: 2.39, z: 14.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4386472268431092}
@@ -165,7 +166,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1635531882515094}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e4fb56a67aeaf094da8ac1349396c2da, type: 2}
   m_CullingMode: 0
@@ -202,8 +203,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.7629817, b: 0.5808823, a: 1}
-  m_Intensity: 3.72
-  m_Range: 4.08
+  m_Intensity: 3.7
+  m_Range: 3.7
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -213,8 +214,8 @@ Light:
     m_Strength: 0.519
     m_Bias: 0.05
     m_NormalBias: 0
-    m_NearPlane: 0.0565
-  m_Cookie: {fileID: 0}
+    m_NearPlane: 0.1
+  m_Cookie: {fileID: 8900000, guid: 9c40919e0970e42418d6735061db00f0, type: 3}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
@@ -253,6 +254,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d278dbfda4cd54fbce5818371a258c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114942686640282398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1635531882515094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 143c217b4e690924facc6518a371a11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flickeringLightStyle: 0
+  campfireMethod: 0
+  campfireIntesityStyle: 1
+  campfireRangeStyle: 0
+  CampfireIntensityBaseValue: 3.7
+  CampfireIntensityFlickerValue: 0.4
+  CampfireRangeBaseValue: 3.7
+  CampfireRangeFlickerValue: 0.4
+  CampfireSineCycleIntensitySpeed: 0.005
+  CampfireSineCycleRangeSpeed: 0.005
+  FluorescentFlickerMin: 10
+  FluorescentFlickerMax: 7
+  FluorescentFlicerPercent: 0.95
+  FluorescentFlickerPlaySound: 0
+  FluorescentFlickerAudioClip: {fileID: 0}
 --- !u!135 &135755986921786496
 SphereCollider:
   m_ObjectHideFlags: 1

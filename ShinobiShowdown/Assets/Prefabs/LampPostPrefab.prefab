@@ -40,7 +40,11 @@ GameObject:
   - component: {fileID: 4888414659876532}
   - component: {fileID: 108237333936651202}
   - component: {fileID: 95344293401816452}
+<<<<<<< HEAD
   - component: {fileID: 114942686640282398}
+=======
+  - component: {fileID: 114433752543029866}
+>>>>>>> 6ad39e1bc99c74ba98fe77407ba01622a83c57c6
   m_Layer: 0
   m_Name: Point light
   m_TagString: Untagged
@@ -100,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1635531882515094}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0, z: 1.34}
+  m_LocalPosition: {x: 0, y: -0, z: 1.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4840088563143980}
@@ -203,28 +207,39 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.7629817, b: 0.5808823, a: 1}
+<<<<<<< HEAD
   m_Intensity: 3.7
   m_Range: 3.7
+=======
+  m_Intensity: 4.96
+  m_Range: 2.77
+>>>>>>> 6ad39e1bc99c74ba98fe77407ba01622a83c57c6
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.519
+    m_Strength: 1
     m_Bias: 0.05
+<<<<<<< HEAD
     m_NormalBias: 0
     m_NearPlane: 0.1
   m_Cookie: {fileID: 8900000, guid: 9c40919e0970e42418d6735061db00f0, type: 3}
+=======
+    m_NormalBias: 0.24
+    m_NearPlane: 0.05
+  m_Cookie: {fileID: 0}
+>>>>>>> 6ad39e1bc99c74ba98fe77407ba01622a83c57c6
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_FalloffTable:
     m_Table[0]: 0
     m_Table[1]: 0
@@ -243,6 +258,32 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114433752543029866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1635531882515094}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 143c217b4e690924facc6518a371a11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flickeringLightStyle: 0
+  campfireMethod: 0
+  campfireIntesityStyle: 1
+  campfireRangeStyle: 0
+  CampfireIntensityBaseValue: 3.7
+  CampfireIntensityFlickerValue: 0.4
+  CampfireRangeBaseValue: 3.7
+  CampfireRangeFlickerValue: 0.4
+  CampfireSineCycleIntensitySpeed: 0.005
+  CampfireSineCycleRangeSpeed: 0.005
+  FluorescentFlickerMin: 10
+  FluorescentFlickerMax: 7
+  FluorescentFlicerPercent: 0.95
+  FluorescentFlickerPlaySound: 0
+  FluorescentFlickerAudioClip: {fileID: 0}
 --- !u!114 &114827317234470608
 MonoBehaviour:
   m_ObjectHideFlags: 1

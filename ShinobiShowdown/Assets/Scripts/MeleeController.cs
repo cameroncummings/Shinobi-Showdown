@@ -25,8 +25,9 @@ public class MeleeController : NetworkBehaviour
             m_ThrowSFXSource.clip = stabSFX;
             m_ThrowSFXSource.Play();
             RaycastHit hit;
-            Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z) + transform.forward / 10, transform.TransformDirection(Vector3.forward), out hit);
+            Physics.BoxCast(transform.position + new Vector3(0, 0.75f, 0), new Vector3(0.3f, .75f, 0.5f), transform.forward, out hit);
             distance = hit.distance;
+            Debug.Log(hit.transform.name);
             if (hit.transform.tag == "Player" && distance < 2)
             {
                 CmdDamageTarget(hit.transform.gameObject, 2);

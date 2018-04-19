@@ -6,9 +6,17 @@ using UnityEngine.Networking;
 
 public class WinLoseScreenBehaivior : MonoBehaviour
 {
+    private GameObject networkGameObject;
+
+    private void Start()
+    {
+        networkGameObject = GameObject.FindGameObjectWithTag("NetworkManager");
+    }
 
     public void StartNewGame()
     {
+        Destroy(networkGameObject);
+        NetworkManager.Shutdown();
         SceneManager.LoadScene("LobbyUI");
     }
     public void Exit()

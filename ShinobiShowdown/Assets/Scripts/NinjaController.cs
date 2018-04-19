@@ -300,7 +300,7 @@ public class NinjaController : NetworkBehaviour
         {
             m_CurrentKunaiAmmo--;
             GameObject knife = Instantiate(knifePrefab, position, rotation);
-            knife.GetComponent<KunaiKnife>().thrower = thrower;
+            knife.GetComponent<KunaiKnife>().KunaiTeam = thrower.GetComponent<NinjaController>().m_playerTeam;
             knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
             knife.GetComponent<Rigidbody>().velocity = -knife.transform.right * kunaiThrowForce;
             NetworkServer.Spawn(knife.gameObject);
@@ -314,7 +314,7 @@ public class NinjaController : NetworkBehaviour
         {
             m_CurrentKunaiAmmo--;
             GameObject knife = Instantiate(knifePrefab, position, rotation);
-            knife.GetComponent<KunaiKnife>().thrower = thrower;
+            knife.GetComponent<KunaiKnife>().KunaiTeam = thrower.GetComponent<NinjaController>().m_playerTeam;
             knife.transform.rotation = Quaternion.LookRotation(knife.transform.right, knife.transform.up);
             knife.GetComponent<Rigidbody>().velocity = -knife.transform.right * kunaiThrowForce;
             NetworkServer.Spawn(knife.gameObject);

@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 222462227935637540}
   - component: {fileID: 114748068996644546}
   - component: {fileID: 114690450801638298}
+  - component: {fileID: 114761067646851932}
   m_Layer: 5
   m_Name: Round Timer
   m_TagString: Untagged
@@ -738,7 +739,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 5
+  m_Text: '3
+
+'
 --- !u!114 &114215156788088928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1339,7 +1342,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eba4a779c1089a44abecddd515c28164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 120
 --- !u!114 &114748068996644546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1373,6 +1375,38 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 05:00
+--- !u!114 &114761067646851932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1227720751048678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 157
+    i1: 38
+    i2: 236
+    i3: 124
+    i4: 40
+    i5: 136
+    i6: 122
+    i7: 20
+    i8: 41
+    i9: 14
+    i10: 239
+    i11: 21
+    i12: 119
+    i13: 55
+    i14: 252
+    i15: 230
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114777455378598986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2045,7 +2079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -20.699951, y: -8.100098}
+  m_AnchoredPosition: {x: -73.545, y: -59}
   m_SizeDelta: {x: 112.91, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!224 &224617160908020332

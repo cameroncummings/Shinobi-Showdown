@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -9,14 +10,10 @@ using UnityEngine.UI;
 public class KunaiKnife : NetworkBehaviour
 {
 
-    public GameObject thrower;
+    private NinjaController.Team kunaiTeam;
+    public NinjaController.Team KunaiTeam { get { return kunaiTeam; } set { kunaiTeam = value; } }
     //the message that displays when you are in range to pick up a knife
     private bool isMoving = true;//used to determine if it will damage the player or if they can pick it up
-
-    private void OnEnable()
-    {
-
-    }
 
     private void Update()
     {
@@ -31,7 +28,7 @@ public class KunaiKnife : NetworkBehaviour
         mat.SetColor("_EmissionColor", finalColor);
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (isMoving)
         {
@@ -47,17 +44,18 @@ public class KunaiKnife : NetworkBehaviour
 
                 other.GetComponent<SphereCollider>().enabled = false;
                 Destroy(gameObject);
+                //CmdDestroyLight(other.gameObject);
             }
-            else if (other.tag == "Player" && thrower.GetComponent<NinjaController>().m_playerTeam != other.GetComponent<NinjaController>().m_playerTeam)
+            else if (other.tag == "Player" && kunaiTeam != other.GetComponent<NinjaController>().m_playerTeam)
             {
-                    other.GetComponent<HealthManager>().TakeDamage(1);
-                    Destroy(gameObject);
+                other.GetComponent<HealthManager>().TakeDamage(1);
+                Destroy(gameObject);
             }
-            else if (other.tag == "Target" && thrower.GetComponent<NinjaController>().m_playerTeam == NinjaController.Team.ATTACKING)
+            else if (other.tag == "Target" && kunaiTeam == NinjaController.Team.ATTACKING)
             {
-                RpcLoadEndScreen();
+                SceneManager.LoadScene("OffenseWin");
             }
-            else if(other.tag != "Player" && other.tag != "KunaiKnife")
+            else if (other.tag != "Player" && other.tag != "KunaiKnife")
             {
                 this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 this.GetComponent<BoxCollider>().enabled = false;
@@ -76,9 +74,10 @@ public class KunaiKnife : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
-    void RpcLoadEndScreen()
+    [Command]
+    void CmdLoadEndScreen()
     {
         SceneManager.LoadScene("OffenseWin");
     }
+
 }

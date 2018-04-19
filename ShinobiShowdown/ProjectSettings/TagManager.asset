@@ -23,6 +23,7 @@ TagManager:
   - DefendingTeamSpawn
   - Target
   - KunaiKnife
+  - NetworkManager
   layers:
   - Default
   - TransparentFX
